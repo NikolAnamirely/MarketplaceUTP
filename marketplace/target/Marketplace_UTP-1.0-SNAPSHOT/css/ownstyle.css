@@ -1,0 +1,46 @@
+@charset "ISO-8859-1";
+.combo{
+    display: block;
+    border-radius: 3px;
+    margin: 20px auto;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+}
+
+th, td {
+   height:40px;
+   border: 1px solid #ced4da;
+   border-collapse: collapse;
+}
+.tablaspern{
+    width: 100%;
+    background: #495057;
+    color: #fff;
+    text-align: center;
+}
+.botonesown{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.sinborde {
+  border: 0;
+  background-color: #def;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+
+   opacity: 1;
+
+}
