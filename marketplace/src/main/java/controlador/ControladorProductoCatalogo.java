@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import modelo.DaoDetalle;
 import modelo.DaoProducto;
 
 /**
@@ -108,5 +107,7 @@ public class ControladorProductoCatalogo extends HttpServlet {
             request.setAttribute("user", prmuser);
             request.getRequestDispatcher("/CatalogoCliente.jsp").
                                             forward(request, response);
+            
+            System.out.println("\nUSUARIO: " + prmuser);
     }
 }

@@ -98,7 +98,7 @@ public class ControladorCalificacion extends HttpServlet {
             
             if(action.equals("1")){
                 DaoTienda daoTienda = new DaoTienda();
-                idcalificacion= daoTienda.ConsultarTiendaId("2",prmTienda);
+                idcalificacion= daoTienda.Calificacion(prmuser,prmTienda);
                 request.setAttribute("id_cal", idcalificacion);
                 request.getRequestDispatcher("/Calificacion.jsp").
                                             forward(request, response);

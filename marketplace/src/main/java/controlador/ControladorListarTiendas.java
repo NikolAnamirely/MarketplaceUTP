@@ -97,32 +97,32 @@ public class ControladorListarTiendas extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id;
-        id = request.getParameter("txtUsuario");
+        String idnom,idus;
+        idnom = request.getParameter("txtUsuario");
         String tt = null;
         tt = request.getParameter("pruebilla");
         String id_distrito;
-
+        idus = request.getParameter("iduser");
+    //DAOS
         DaoCliente cli = new DaoCliente();
         DaoSeleccionar dao = new DaoSeleccionar();
-
         DaoTienda daotienda = new DaoTienda();
-        id_distrito = cli.ObtenerDistrito(id);
-
+        DaoDetalle daodet = new DaoDetalle();
+    //OBTENER DISTRITO
+        id_distrito = cli.ObtenerDistrito(idnom);
         ArrayList<Tienda> tiendas = daotienda.listarTiendasMapa(id_distrito);
-
         List<Seleccionar> list = dao.Cargar("distrito");
 
+        
         request.setAttribute("listaDistritos", list);
 
-        DaoDetalle daodet = new DaoDetalle();
-        String codPed = daodet.generarIdPedido(id);
+       
+        String codPed = daodet.generarIdPedido(idnom);
         HttpSession session = request.getSession(true);
         session.setAttribute("codpedido", codPed);
 
         session.setAttribute("ubicaciones", tiendas);
-        session.setAttribute("user", id);
-        System.out.print(id);
+        session.setAttribute("iduser", idus);
         
         //3 Se reenvia el request al formulario 
         request.getRequestDispatcher("/vistaUbicaciones.jsp").

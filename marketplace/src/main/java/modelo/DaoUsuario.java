@@ -18,6 +18,57 @@ public class DaoUsuario {
     static Connection cnx= null;
     static ResultSet rs=null;
     
+    public static String obtenerId(String username){
+        String id=null;
+        
+        String sql = "select * from usuario where usuario='"
+                        + username+ "'";
+            //Connection cnx = getConnection();
+            
+            Statement stm = null;
+            String rol=null;
+        try 
+        {
+            cnx = MysqlDBConexion.getConexion();
+            stm = cnx.createStatement();
+            rs = stm.executeQuery(sql);
+            while(rs.next()){
+                id = rs.getString(1);
+            }
+        } 
+        catch (Exception e) 
+        {
+                e.printStackTrace();
+                System.out.print("ERROR: !!"+e);
+        } 
+        finally
+        {
+                if (rs != null)	{
+                    try {
+                       rs.close();
+                    } catch (Exception e) {}
+                       rs = null;
+                    }
+
+                 if (stm != null) {
+                    try {
+                       stm.close();
+                    } catch (Exception e) {}
+                       stm = null;
+                    }
+
+                 if (cnx != null) {
+                    try {
+                       cnx.close();
+                    } catch (Exception e) {
+                    }
+
+                    cnx = null;
+                 }
+        }
+        return id;
+    }
+    
     public static String ObtenerRol(Usuario user){
             String username=user.getUsuario();
             

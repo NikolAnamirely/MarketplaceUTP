@@ -19,8 +19,8 @@ import utils.MysqlDBConexion;
  * @author Sketcher
  */
 public class DaoTienda {
-    public String ConsultarTiendaId(String prmuser, String prmTienda) {
-        String id,prmpersona;
+    public String Calificacion(String prmuser, String prmTienda) {
+        String id,prmpersona="";
         id="1";
         String sqls = "select id_persona from usuario where id_usuario="+prmuser;
         String sqls2 = "select id_calificacion from calificacion";
@@ -31,18 +31,26 @@ public class DaoTienda {
             
         try 
         {
+            cnx = MysqlDBConexion.getConexion();
+            stm = cnx.createStatement();
+            //EJECUTO LA PRIMERA CONSULTA
             rs = stm.executeQuery(sqls);
-            prmpersona = rs.getString(1);
-            System.out.print(prmpersona);
+            while(rs.next()){
+                prmpersona = rs.getString(1);
+            }
+            System.out.println("\nPERSONA: " + prmpersona);
             
-            String sql = "insert into calificacion(id_calificacion,id_tienda,id_persona) values (NULL,"+prmTienda+","+prmpersona+")";
-            
+            String sql = "insert into calificacion(id_calificacion,comentario,id_tienda,id_persona,id_numerica) values (NULL,NULL,"+prmTienda+","+prmpersona+",NULL)";
+            //EJECUTO LA SEGUNDA CONSULTA
             stm.executeUpdate(sql);
             
+            //EJECUTO LA TERCERA CONSULTA
+            //stm = cnx.createStatement();
             rs = stm.executeQuery(sqls2);
             while(rs.next()){
                 id = rs.getString(1);
             }
+            System.out.println("\nIDCALIFICACION: " + id);
         } 
         catch (Exception e) 
         {

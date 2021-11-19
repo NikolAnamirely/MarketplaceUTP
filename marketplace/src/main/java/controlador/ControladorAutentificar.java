@@ -81,7 +81,8 @@ public class ControladorAutentificar extends HttpServlet {
                     if(rol.equals("1")){
                         response.sendRedirect("ControladorBuscarTienda?txtUsuario="+username); //vendedor 
                     }else{
-                        response.sendRedirect("ControladorListarTiendas?txtUsuario="+username);//cliente
+                        String idusuario=DaoUsuario.obtenerId(username);
+                        response.sendRedirect("ControladorListarTiendas?txtUsuario="+username+"&iduser="+idusuario);//cliente
                     }
                 }
 

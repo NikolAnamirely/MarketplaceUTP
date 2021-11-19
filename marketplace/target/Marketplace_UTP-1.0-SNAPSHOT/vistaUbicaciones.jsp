@@ -336,7 +336,8 @@
             <%
             ArrayList<Tienda> lista = (ArrayList<Tienda>)session.getAttribute("ubicaciones");
             String pedido = (String)session.getAttribute("codpedido");
-            String user = (String)session.getAttribute("user");
+            String iduser = (String)session.getAttribute("iduser");
+            System.out.println("\nUSUARIOMAPA: " + iduser);
             
             %>
                                         var marker;//variable del marcador
@@ -356,7 +357,7 @@
 
                                         contentString[<%=i%>] = '<div class="info_content">' +
                                                 '<h3>' + nombre[<%=i%>] + '</h3>' +
-                                                '<p><a href="ControladorProductoCatalogo?txtTienda=<%=lista.get(i).getId()%>&codped=<%=pedido%>&user="<%=user%>">Tienda</a></p>' + '</div>';
+                                                '<p><a href="ControladorProductoCatalogo?user=<%=iduser%>&txtTienda=<%=lista.get(i).getId()%>&codped=<%=pedido%>">Tienda</a></p>' + '</div>';
             <% } %>
 
                                         //Funcion principal
