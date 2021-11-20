@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 import modelo.DaoDetalle;
 import modelo.Detalle;
 
@@ -106,6 +105,7 @@ public class ControladorAgregarDetalle extends HttpServlet {
             double cant=Double.parseDouble(cantidad);
             double cost=Double.parseDouble(costo);
             double total=cost*cant;
+            total=Math.round(total*100.0)/100.0;
             Detalle detallenuevo=new Detalle();
 
             detallenuevo.setCantidad(cant);

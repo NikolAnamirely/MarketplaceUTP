@@ -19,6 +19,58 @@ import utils.MysqlDBConexion;
  * @author Sketcher
  */
 public class DaoTienda {
+    public void InsertarCalificacion(String calificacion,String comentario,String idcal){
+            
+            String sql = "update calificacion set comentario='"+comentario+"',id_numerica="+calificacion+" where id_calificacion="+idcal;
+            //Connection cnx = getConnection();
+            Connection cnx= null;
+            ResultSet rs=null;
+            Statement stm = null;
+            
+            String distrito=null;
+        try 
+        {
+            //ABRE CONEXION CON BASE DE DATOS
+            cnx = MysqlDBConexion.getConexion();
+            //EJECUTAMOS SENTENCIA SQL
+            stm = cnx.createStatement();
+            stm.executeUpdate(sql);
+
+            cnx.close();
+            
+        } 
+        catch (Exception e) 
+        {
+                e.printStackTrace();
+                System.out.print("ERROR: !!"+e);
+        } 
+        finally
+        {
+                if (rs != null)	{
+                    try {
+                       rs.close();
+                    } catch (Exception e) {}
+                       rs = null;
+                    }
+
+                 if (stm != null) {
+                    try {
+                       stm.close();
+                    } catch (Exception e) {}
+                       stm = null;
+                    }
+
+                 if (cnx != null) {
+                    try {
+                       cnx.close();
+                    } catch (Exception e) {
+                    }
+
+                    cnx = null;
+                 }
+        }
+    }
+    
     public String Calificacion(String prmuser, String prmTienda) {
         String id,prmpersona="";
         id="1";

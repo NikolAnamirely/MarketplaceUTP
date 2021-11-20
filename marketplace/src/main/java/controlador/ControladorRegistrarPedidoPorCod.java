@@ -101,6 +101,10 @@ public class ControladorRegistrarPedidoPorCod extends HttpServlet {
             double igv=subtotal*0.18;
             double total=subtotal+igv;
             
+            subtotal= Math.round(subtotal*100.0)/100.0;
+            igv= Math.round(igv*100.0)/100.0;
+            total= Math.round(total*100.0)/100.0;
+            
             String sub=subtotal+"";
             String ig=igv+"";
             String tot=total+"";

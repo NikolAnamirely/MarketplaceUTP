@@ -115,6 +115,7 @@ public class ControladorEditarEliminarDetalle extends HttpServlet {
 
                 double cant=Double.parseDouble(prmcantidad);
                 double total=Double.parseDouble(prmcosto)*cant;
+                total= Math.round(total*100.0)/100.0;
                 Detalle deta=new Detalle();
                 deta.setCantidad(cant);
                 deta.setCodproducto(prmprod);

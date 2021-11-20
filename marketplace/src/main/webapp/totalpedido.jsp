@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="css/responsive.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css">
-    <link rel="stylesheet" href="css/ownstyle.css">
+    <link rel="stylesheet" href="css/ownstyledetalle.css">
 
 </head>
 
@@ -118,74 +118,81 @@
                     String total = (String)request.getAttribute("total");
                 %>
                     <div class="col-lg-4 col-sm-6">
-                        Subtotal: <input type="text" style="font-size: 20px;border:0;width: 14.5%" name="subtotal" value="<%=subtotal%>"/>
+                        Subtotal: <input type="text" style="font-size: 20px;border:0;" name="subtotal" value="<%=subtotal%>" readonly/>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        IGV: <input type="text" name="IGV"  style="font-size: 20px;border:0;width: 14.5%" value="<%=igv%>"/>
+                        IGV: <input type="text" name="IGV"  style="font-size: 20px;border:0;" value="<%=igv%>" readonly/>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        Total: <input type="text" name="Total" style="font-size: 20px;width: 14.2%;border:0; " value="<%=total%>"/>
+                        Total: <input type="text" name="Total" style="font-size: 20px;border:0; " value="<%=total%>" readonly/>
                     </div>
                 </div>
                 <br>
-                <table style="width: 100%; border: 1px solid #ced4da; text-align:center;">
-                        <tr class= "tablaspern" style="width: 100%;background: #495057;">
-                            <td style="width: 5%;color: #495057;">Codigo</td>
-                            <td style="width: 20%;">Nombre</td>
-                            <td style="width: 10%;">Costo</td>
-                            <td style="width: 15%;">Cantidad</td>
-                            <td style="width: 15%;">Total</td>
-                            <td style="width: 10%;">Editar</td>
-                            <td style="width: 10%;">Eliminar</td>
-                            <td style="width: 5%;color: #495057;">CodPed</td>
+                <table type="table table-hover" style="width: 100%;">
+                    <thead>    
+                        <tr class= "tablaspern" style="width: 100%;">
+                            <th scope="col" ></th>
+                            <th scope="col" >Imagen</th>
+                            <th scope="col" >Nombre</th>
+                            <th scope="col" >Costo</th>
+                            <th scope="col" >Cantidad</th>
+                            <th scope="col" >Total</th>
+                            <th scope="col" >Editar</th>
+                            <th scope="col" >Eliminar</th>
                         </tr>
+                    </thead>
+                    <tbody>
                          <%
                             List<Detalle> lista = (List<Detalle>)request.getAttribute("detalle");  
-                            
+                            int id=0;
                             if(lista != null)
                             {
                                 for(Detalle aux :lista)
                                 {
-                                    
+                                    id=id+1;
                         %>
                        
-                                    <tr class="grilla_campo"> 
-                                           <form action="ControladorEditarEliminarDetalle" >
-                                           <td>
-                                               <input type="hidden" name="codprod" value="<%= aux.getCodproducto()%>"/>
-                                           </td>
+                                    <tr class="grilla_campo" align="center"> 
+                                        <form action="ControladorEditarEliminarDetalle" >
+                                            <td style="border-left:1px solid white;border-right: 1px solid white;">
+                                                <%=id%>
+                                            </td>
+                                            <td style="border-left:1px solid white;border-right: 1px solid white;">
+                                                <img src="ControladorIMG?id=<%= aux.getCodproducto()%>" width="80" height="100">
+                                            </td>
+                                            <td style="border-left:1px solid white;border-right: 1px solid white;">
+                                                <%= aux.getProducto()%>
+                                            </td>
                                            
-                                           <td><%= aux.getProducto()%></td>
+                                            <td style="border-left:1px solid white;border-right: 1px solid white;">
+                                                <input style="border:0px; width: 45px" type="number" name="costo" value="<%= aux.getCosto()%>" readonly/>
+                                            </td>
+                                                     
+                                            <td style="border-left:1px solid white;border-right: 1px solid white;">
+                                                <input type="number" name="cantidad" min="0" max="300" value="<%= aux.getCantidad()%>"/>  <%= aux.getUnidades()  %>
+                                            </td>
                                            
-                                           <td>
-                                               <input style="border:0px" type="text" name="costo" value="<%= aux.getCosto()%>"/>
-                                           </td>
-                                                      
-                                           <td>
-                                               <input type="number" name="cantidad"style="width: 50%" value="<%= aux.getCantidad()%>"/>  <%= aux.getUnidades()  %>
-                                           </td>
+                                            <td style="border-left:1px solid white;border-right: 1px solid white;" align="center">
+                                                <input style="border:0px;width: 45px" type="number" name="total" value="<%= aux.getTotal()%>" align="center" readonly/>
+                                            </td>
                                            
+                                            <td align="center" style="border-left:1px solid white;border-right: 1px solid white;">
+                                                <button type="submit" style="border: 0;background: white;"><img src="imagenes/editardet.png"></button>
+                                            </td>
                                            
-                                           <td>
-                                               <input style="border: 0;width: 31px" type="text" name="total" value="<%= aux.getTotal()%>"/>
-                                           </td>
+                                            <td align="center" style="border-left:1px solid white;border-right: 1px solid white;">
+                                                <a href="ControladorEditarEliminarDetalle?codprod=<%= aux.getCodproducto()%>&criterio=eliminar&codigoPed=<%=aux.getPedido()%>"><img src="imagenes/eliminardet.png"></a>
+                                            </td>
                                            
-                                           <td align="center"><button type="submit"><img src="imagenes/editar.png"></button></td>
-                                           
-                                           <td align="center"><a href="ControladorEditarEliminarDetalle?codprod=<%= aux.getCodproducto()%>&criterio=eliminar&codigoPed=<%=aux.getPedido()%>"><img src="imagenes/eliminar.png"></a></td>
-                                           
-                                           <td>
-                                               <input type="hidden" name="codigoPed" value="<%=aux.getPedido()%>"/>
-                                           </td>
-                                           <td>
-                                               <input type="hidden" name="criterio" value="editar"/>
-                                           </td>
-                                           </form>  
-                                           </tr>
+                                            <input type="hidden" name="codigoPed" value="<%=aux.getPedido()%>"/>
+                                            <input type="hidden" name="criterio" value="editar"/>
+                                            <input type="hidden" name="codprod" value="<%= aux.getCodproducto()%>"/>
+                                        </form>  
+                                    </tr>
 
                         <%     }
                             }       %>	
-
+                    </tbody>
                 </table>
                 <br>
                 <p></p>

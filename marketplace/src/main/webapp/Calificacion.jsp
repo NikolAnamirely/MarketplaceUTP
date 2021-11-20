@@ -129,8 +129,10 @@
                                 <div class="col-md-6">
                                 <%
                                     String cal = (String)request.getAttribute("id_cal");  
+                                    String user = (String)request.getAttribute("user");  
                                 %>    
                                 <input type="hidden" name="id_cal" value="<%=cal%>"/>
+                                <input type="hidden" name="user" value="<%=user%>"/>
                                 <input type="hidden" name="action" value="2"/>
                                 </div>
                             </div>
@@ -139,7 +141,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         ¡Califica esta tienda!
-                                        <input type="range" min="1" max="5" step="1" required>
+                                        <input type="range" min="1" max="5" step="1" name="numeracion" required>
                                     </div>
                                 </div>
                                 <div class="col-md-3"></div>

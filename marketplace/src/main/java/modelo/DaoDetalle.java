@@ -114,7 +114,7 @@ public class DaoDetalle {
                 p.setProducto(rs.getString(2));
                 p.setUnidades(rs.getString(3));
                 p.setCantidad(rs.getInt(4));
-                p.setTotal(rs.getFloat(5));
+                p.setTotal(Math.round(rs.getFloat(5)*100.0)/100.0);
                 p.setPedido(rs.getString(6));
                 p.setCosto(rs.getDouble(7));
                 lst.add(p);

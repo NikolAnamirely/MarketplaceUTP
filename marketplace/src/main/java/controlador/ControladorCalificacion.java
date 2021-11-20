@@ -90,20 +90,28 @@ public class ControladorCalificacion extends HttpServlet {
             throws ServletException, IOException 
     {
             //DECLARO
-            String prmTienda,prmuser,action,idcalificacion;
+            String prmTienda,prmuser,action,idcalificacion,numer,comentario;
             //OBTENGO CODTIENDA Y CODPEDIDO
-            prmTienda = request.getParameter("txtTienda");
             prmuser = request.getParameter("user");
             action = request.getParameter("action");
             
+            DaoTienda daoTienda = new DaoTienda();
+            
             if(action.equals("1")){
-                DaoTienda daoTienda = new DaoTienda();
+                prmTienda = request.getParameter("txtTienda");
+                
                 idcalificacion= daoTienda.Calificacion(prmuser,prmTienda);
                 request.setAttribute("id_cal", idcalificacion);
+                request.setAttribute("user", prmuser);
                 request.getRequestDispatcher("/Calificacion.jsp").
                                             forward(request, response);
             }else{
-                request.getRequestDispatcher("ControladorListarTiendas?txtUsuario="+2).
+                numer = request.getParameter("numeracion");
+                comentario = request.getParameter("comentario");
+                idcalificacion = request.getParameter("id_cal");
+                System.out.println("NUMERO: "+numer);
+                daoTienda.InsertarCalificacion(numer,comentario,idcalificacion);
+                request.getRequestDispatcher("ControladorListarTiendas?txtUsuario="+prmuser).
                                             forward(request, response);
             }
     }
