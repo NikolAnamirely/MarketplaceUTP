@@ -16,6 +16,7 @@ import utils.MysqlDBConexion;
 
 public class DaoProducto 
 {
+    
     public String NuevoCodigo(String nombre,String tipo) {
             List<Seleccionar> lst = new ArrayList<Seleccionar>();
             String sql = "insert into "+tipo+" values(NULL,'"+nombre+"')";

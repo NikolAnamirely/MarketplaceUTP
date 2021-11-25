@@ -1,6 +1,4 @@
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <%@page import="modelo.Tienda"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
@@ -126,20 +124,72 @@
                 <div class="col-lg-8 col-md-8 col-sm-12">
                 <%
                     List<Tienda> lista = (List<Tienda>)request.getAttribute("listTi");   
+                    int x;
+                    String calificacion="";
                     if(lista != null)
                     {
                         for(Tienda aux :lista)
                         {
+                            x=aux.getCalificacion();
+                            
+                
                 %>
                     <div class="card">
-                        <h3 class="card-header"><%= aux.getNombre()%></h3>
+                        <h3 class="card-header"><b><%= aux.getNombre()%></b></h3>
                         <div class="card-body">
-                            <p class="card-text">Calificación de la tienda: <%= aux.getCalificacion()%></p><br>
-                            <a href="ControladorProductoTienda?txtTienda=<%= aux.getId()%>&termino=nada&criterio=nada" style ="background:#d43b33; border:2px;border-color: white;width: 97%;" class="btn btn-primary">Catalogo de productos</a><br>
-                                    <a href="ControladorMostrarPedidos?txtTienda=<%= aux.getId()%>" class="btn btn-primary" style ="background:#cccdd7; color:black;border:2px;border-color: white;width: 32%;" >Pedidos</a> 
-                                    <a href="ControladorMostrarPedidosAten?txtTienda=<%= aux.getId()%>" class="btn btn-primary" style ="background:#cccdd7;color:black; border:2px;border-color: white;width: 32%;" >Atención de pedidos</a>
-                                    <a href="ControladorMostrarReportes?txtTienda=<%= aux.getId()%>" class="btn btn-primary" style ="background:#cccdd7;color:black; border:2px;border-color: white;width: 32%;" >Reportes de Pedidos</a> 
-                                
+                            <p class="card-text">Calificación de la tienda: 
+                                <% 
+                                    System.out.print("<p>");
+                                    while(x>=0){
+                                        System.out.print("?");
+                                        x--;
+                                    }
+                                    System.out.print("</p>");
+                                %>
+                            </p><br>
+                            <div class="row row-cols-1 row-cols-md-2 g-4">
+                                <div class="col">
+                                    <div class="card">
+                                        <img src="imagenes/catalogo.png" class="card-img-top">
+                                        <div class="card-body">
+                                            <a href="ControladorProductoTienda?txtTienda=<%= aux.getId()%>&termino=nada&criterio=nada"><h5 class="card-title">Catalogo de productos</h5></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <img src="imagenes/atencion.png" class="card-img-top">
+                                        <div class="card-body">
+                                            <a href="ControladorMostrarPedidosAten?txtTienda=<%= aux.getId()%>"><h5 class="card-title">Ateción de pedidos</h5></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <img src="imagenes/reporte.png" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <a href="ControladorMostrarReportes?txtTienda=<%= aux.getId()%>"><h5 class="card-title">Reportes de Pedidos</h5></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <img src="imagenes/pedidos.png" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <a href="ControladorMostrarPedidos?txtTienda=<%= aux.getId()%>"><h5 class="card-title">Pedidos</h5></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    
+                                </div>
+                            </div>
+                            
+                                                                      
                         </div>
                     </div>
                     <br>

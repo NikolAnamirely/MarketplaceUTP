@@ -19,6 +19,56 @@ import utils.MysqlDBConexion;
  * @author Sketcher
  */
 public class DaoTienda {
+     public Tienda ConsultarDatosTienda(String idtienda) 
+    {
+            String sql = "select t.id_tienda,t.nombre,t.direccion,t.activo,p.nombre,p.primerapellido,p.segundoapellido,p.email,t.calificacion from tienda t inner join persona p on t.id_persona=p.id_persona where t.id_tienda="+
+                            idtienda;
+            Connection cnx= null;
+            ResultSet rs=null;
+            Statement stm = null;
+            Tienda resp = null;
+        try 
+        {
+            cnx = MysqlDBConexion.getConexion();
+            stm = cnx.createStatement();
+            rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                Tienda  c = new Tienda();
+                c.setId(rs.getInt(1));
+                c.setNombre(rs.getString(2));
+                c.setDireccion(rs.getString(3));
+                c.setActivo(rs.getInt(4));
+                c.setPnom(rs.getString(5));
+                c.setPpape(rs.getString(6));
+                c.setPsape(rs.getString(7));
+                c.setPemail(rs.getString(8));
+                c.setCalificacion(rs.getInt(9));
+                resp=c;
+            }
+            
+            cnx.close();
+            
+            
+        } 
+       catch (Exception e) 
+        {
+                System.out.print(e);
+        } 
+        finally
+        {
+                try 
+                {
+                        if(rs!= null) rs.close();
+                        if(stm!= null) stm.close();
+                        if(cnx!= null) cnx.close();
+                } 
+                catch (Exception e2) 
+                {
+                }
+        }
+        return resp;
+    } 	
+    
     public void InsertarCalificacion(String calificacion,String comentario,String idcal){
             
             String sql = "update calificacion set comentario='"+comentario+"',id_numerica="+calificacion+" where id_calificacion="+idcal;

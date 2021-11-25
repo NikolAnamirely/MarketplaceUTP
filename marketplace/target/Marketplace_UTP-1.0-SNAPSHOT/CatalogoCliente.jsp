@@ -4,6 +4,7 @@
     Author     : Lenovo
 --%>
 <%@page import="modelo.Producto"%>
+<%@page import="modelo.Tienda"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -93,14 +94,25 @@
     </header>
 <!-- End Main Top -->
 <!-- Start All Title Box -->
+<%
+   Tienda objTienda = (Tienda)request.getAttribute("tienda");
+%>
+
     <div class="all-title-box">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2>Catalogo de productos</h2>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.jsp">Inicio</a></li>
-                    </ul>
+                    <h1 style="color:white;font-size: 70px"><b><%= objTienda.getNombre()%></b></h1>
+                    <h2><% int x=objTienda.getCalificacion();
+                            while(x>=1){
+                            %> <img src="imagenes/estrella.png" style="width: 1%"><%
+                                x--;
+                            }
+                        %>
+                    </h2>
+                    <h3 style="color:white"><%= objTienda.getPnom()+" "+objTienda.getPpape()+" "+objTienda.getPsape()%></h3>
+                    <h6 style="color:white"><%= objTienda.getPemail()%></h6>
+                    
                 </div>
             </div>
         </div>
@@ -206,7 +218,7 @@
                     <div class="col-lg-3 col-sm-3"></div>
                     <div class="col-lg-4 col-sm-4">
                         <form action="ControladorCalificacion" >
-                            <input type="text" name="user" value="<%=user%>"/>
+                            <input type="hidden" name="user" value="<%=user%>"/>
                             <input type="hidden" name="txtTienda" value="<%=codtien%>"/>
                             <input type="hidden" name="action" value="1"/>
                             <p align="center"><input  style="color: white; width: 150%; align-items: center" class="btn hvr-hover" type="submit" id="submit" value="Califica la Tienda"></p>

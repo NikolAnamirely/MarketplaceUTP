@@ -139,9 +139,21 @@
                             <div class="row">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
+                                    ¡Califica esta tienda!
                                     <div class="form-group">
-                                        ¡Califica esta tienda!
-                                        <input type="range" min="1" max="5" step="1" name="numeracion" required>
+                                          <p class="clasificacion">
+                                            <input id="radio1" type="radio" name="numeracion" value="5"><!--
+                                            --><label for="radio1">★</label><!--
+                                            --><input id="radio2" type="radio" name="numeracion" value="4"><!--
+                                            --><label for="radio2">★</label><!--
+                                            --><input id="radio3" type="radio" name="numeracion" value="3"><!--
+                                            --><label for="radio3">★</label><!--
+                                            --><input id="radio4" type="radio" name="numeracion" value="2"><!--
+                                            --><label for="radio4">★</label><!--
+                                            --><input id="radio5" type="radio" name="numeracion" value="1"><!--
+                                            --><label for="radio5">★</label>
+                                          </p>
+                                        
                                     </div>
                                 </div>
                                 <div class="col-md-3"></div>

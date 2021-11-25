@@ -17,6 +17,7 @@ public class Tienda {
     private String nombre,direccion,latitud,longitud,distrito,tipodireccion;
     private int id,activo,calificacion;
     private int id_tipodir,id_persona,id_distrito;
+    private String pnom,ppape,psape,pemail;
     
     public Tienda(String nombre, String direccion, String latitud, String longitud, String distrito, String tipodireccion, int id, int activo, int calificacion) {
         this.nombre = nombre;
@@ -42,6 +43,38 @@ public class Tienda {
         this.id = 0;
         this.activo = 0;
         this.calificacion = 0;
+    }
+
+    public String getPnom() {
+        return pnom;
+    }
+
+    public void setPnom(String pnom) {
+        this.pnom = pnom;
+    }
+
+    public String getPpape() {
+        return ppape;
+    }
+
+    public void setPpape(String ppape) {
+        this.ppape = ppape;
+    }
+
+    public String getPsape() {
+        return psape;
+    }
+
+    public void setPsape(String psape) {
+        this.psape = psape;
+    }
+
+    public String getPemail() {
+        return pemail;
+    }
+
+    public void setPemail(String pemail) {
+        this.pemail = pemail;
     }
 
     public String getNombre() {

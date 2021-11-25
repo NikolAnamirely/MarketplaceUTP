@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import modelo.DaoProducto;
+import modelo.DaoTienda;
+import modelo.Tienda;
 
 /**
  *
@@ -96,12 +98,17 @@ public class ControladorProductoCatalogo extends HttpServlet {
             prmTienda = request.getParameter("txtTienda");
             prmuser = request.getParameter("user");
             prmpedido = request.getParameter("codped");
+            //DAOS
             DaoProducto daoProductos = new DaoProducto();
+            DaoTienda daoTienda = new DaoTienda();
             //CONSULTO DAO
             List<Producto> lista = daoProductos.ConsultarProductosStock(prmTienda);
+            Tienda  c = daoTienda.ConsultarDatosTienda(prmTienda);
+            
 
             //ENVIO LISTA PRODUCTO,CODPEDIDO,CODTIENDA
             request.setAttribute("prod", lista);
+            request.setAttribute("tienda", c);
             request.setAttribute("codpedido", prmpedido);
             request.setAttribute("codtienda", prmTienda);
             request.setAttribute("user", prmuser);

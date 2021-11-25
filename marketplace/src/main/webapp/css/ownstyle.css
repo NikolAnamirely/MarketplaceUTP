@@ -44,3 +44,29 @@ input[type=number]::-webkit-outer-spin-button {
    opacity: 1;
 
 }
+
+
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  color: #cccdd7;
+  width: 30px;
+}
+
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+label:hover,
+label:hover ~ label {
+  color: #d43b33;
+  width: 30px;
+}
+
+input[type="radio"]:checked ~ label {
+  color: #d43b33;
+  width: 30px;
+}
