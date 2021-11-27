@@ -96,6 +96,8 @@
 <!-- Start All Title Box -->
 <%
    Tienda objTienda = (Tienda)request.getAttribute("tienda");
+   String codtien = (String)request.getAttribute("codtienda");
+   String user = (String)request.getAttribute("user");
 %>
 
     <div class="all-title-box">
@@ -103,15 +105,16 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 style="color:white;font-size: 70px"><b><%= objTienda.getNombre()%></b></h1>
-                    <h2><% int x=objTienda.getCalificacion();
+                    <h3 style="color:white"><%= objTienda.getPnom()+" "+objTienda.getPpape()+" "+objTienda.getPsape()%></h3>
+                    <h6 style="color:white"><%= objTienda.getPemail()%></h6><br><br>
+                    <p><% int x=objTienda.getCalificacion();
                             while(x>=1){
                             %> <img src="imagenes/estrella.png" style="width: 1%"><%
                                 x--;
                             }
                         %>
-                    </h2>
-                    <h3 style="color:white"><%= objTienda.getPnom()+" "+objTienda.getPpape()+" "+objTienda.getPsape()%></h3>
-                    <h6 style="color:white"><%= objTienda.getPemail()%></h6>
+                    <p>
+                        <a style="color:white" href="ControladorCalificacion?user=<%=user%>&txtTienda=<%=codtien%>&action=1">[Ver calificaciones]</a>
                     
                 </div>
             </div>
@@ -120,8 +123,7 @@
 <!-- End All Title Box -->
 <%
     String codped = (String)request.getAttribute("codpedido");
-    String codtien = (String)request.getAttribute("codtienda");
-    String user = (String)request.getAttribute("user");
+    
     %>
 <!-- Start tabla productos  -->
 	<div class="contact-box-main">

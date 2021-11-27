@@ -1,0 +1,135 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+package controlador;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import modelo.DaoCliente;
+import modelo.Cliente;
+
+
+/**
+ *
+ * @author Lenovo
+ */
+@WebServlet(name = "ControladorEditarCliente", urlPatterns = {"/ControladorEditarCliente"})
+public class ControladorEditarCliente extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ControladorEditarCliente</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ControladorEditarCliente at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+    protected void service(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException 
+    {
+
+           
+           //OBTENER DATOS
+           String id = request.getParameter("id_persona");
+           String nombre = request.getParameter("nombre");
+           String primerapellido = request.getParameter("primerapellido");
+           String segundoapellido = request.getParameter("segundoapellido");
+           String email = request.getParameter("email");
+           String telefono = request.getParameter("telefono");
+           String activo = request.getParameter("activo");
+           String direccion = request.getParameter("direccion");
+           String id_tipodir = request.getParameter("id_tipodireccion");
+           String id_distrito = request.getParameter("id_distrito");
+           
+           
+           
+           Cliente cli=new Cliente();
+           DaoCliente daoCliente = new DaoCliente();
+           
+           cli.setId(Integer.parseInt(id));
+           cli.setNombre(nombre);
+           cli.setPrimerapellido(primerapellido);
+           cli.setSegundoapellido(segundoapellido);
+           cli.setEmail(email);
+           cli.setTelefono(telefono);
+           cli.setActivo(Integer.parseInt(activo));
+           cli.setDireccion(direccion);
+           cli.setTipodireccion(Integer.parseInt(id_tipodir));
+           cli.setDistrito(Integer.parseInt(id_distrito));
+           
+           
+            //ENVIO AL DAO
+           daoCliente.editar(cli);
+           
+           
+            
+           
+           
+
+           request.getRequestDispatcher("ControladorMostrarClientesAdmi").
+                                           forward(request, response);
+    }
+}

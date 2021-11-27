@@ -124,13 +124,12 @@
                 <div class="col-lg-8 col-md-8 col-sm-12">
                 <%
                     List<Tienda> lista = (List<Tienda>)request.getAttribute("listTi");   
-                    int x;
+                    
                     String calificacion="";
                     if(lista != null)
                     {
                         for(Tienda aux :lista)
                         {
-                            x=aux.getCalificacion();
                             
                 
                 %>
@@ -138,14 +137,13 @@
                         <h3 class="card-header"><b><%= aux.getNombre()%></b></h3>
                         <div class="card-body">
                             <p class="card-text">Calificación de la tienda: 
-                                <% 
-                                    System.out.print("<p>");
-                                    while(x>=0){
-                                        System.out.print("?");
+                                <% int x=aux.getCalificacion();
+                                    while(x>=1){
+                                    %> <img src="imagenes/estrellap.png" style="width: 2%"><%
                                         x--;
                                     }
-                                    System.out.print("</p>");
                                 %>
+                    
                             </p><br>
                             <div class="row row-cols-1 row-cols-md-2 g-4">
                                 <div class="col">
@@ -184,9 +182,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    
-                                </div>
+                                
                             </div>
                             
                                                                       

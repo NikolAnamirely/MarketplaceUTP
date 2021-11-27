@@ -18,6 +18,7 @@ public class Tienda {
     private int id,activo,calificacion;
     private int id_tipodir,id_persona,id_distrito;
     private String pnom,ppape,psape,pemail;
+    private String comentario;
     
     public Tienda(String nombre, String direccion, String latitud, String longitud, String distrito, String tipodireccion, int id, int activo, int calificacion) {
         this.nombre = nombre;
@@ -51,6 +52,14 @@ public class Tienda {
 
     public void setPnom(String pnom) {
         this.pnom = pnom;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
     public String getPpape() {

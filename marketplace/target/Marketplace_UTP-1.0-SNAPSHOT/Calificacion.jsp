@@ -1,4 +1,5 @@
 
+<%@page import="modelo.Tienda"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="modelo.Seleccionar"%>
 <%@page import="java.util.List"%>
@@ -120,10 +121,37 @@
         </div>
     </div>
 <!-- End All Title Box -->
-
-<!-- Start tabla productos  -->
-	<div class="contact-box-main">
+<!-- CAJA DE COMENTARIOS -->
+        <div class="contact-box-main">
             <div class="container">
+                <%
+                    
+                    List<Tienda> lista = (List<Tienda>)request.getAttribute("tienda");  
+                    
+                    if(lista != null)
+                    {
+                        for(Tienda aux :lista)
+                        {
+                %>
+                            <div class="card">
+                                <div class="card-header">
+                                  <%= aux.getPnom()+" "+aux.getPpape()+" "+aux.getPsape()%>
+                                </div>
+                                <div class="card-body">
+                                        <p><% int x=aux.getCalificacion();
+                                                while(x>=1){
+                                                %> <img src="imagenes/estrellap.png" style="width: 1%"><%
+                                                    x--;
+                                                }
+                                            %>
+                                        <p>
+                                        <p><%=aux.getComentario()%></p>
+                                </div>
+                            </div>
+                                <br>
+                <%      }
+                    } %>
+            
                         <form action="ControladorCalificacion">
                             <div class="row">
                                 <div class="col-md-6">

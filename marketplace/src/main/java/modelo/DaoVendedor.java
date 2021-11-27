@@ -11,9 +11,9 @@ import utils.MysqlDBConexion;
 
 public class DaoVendedor {
 
-    public List<Vendedor> ConsultarVendedores(String idvendedor) {
+    public List<Vendedor> ConsultarVendedores() {
         List<Vendedor> lst = new ArrayList<Vendedor>();
-        String sql = "select * from persona where id_persona = ?";
+        String sql = "select p.id_persona,p.nombre,p.primerapellido,p.segundoapellido,p.email,p.telefono,p.activo,p.direccion,p.id_tipodireccion,p.id_distrito, u.id_rol from persona p inner join usuario u on p.id_persona=u.id_persona where u.id_rol=1";
         //Connection cnx = getConnection();
         Connection cnx = null;
         ResultSet rs = null;
@@ -23,7 +23,6 @@ public class DaoVendedor {
             cnx = MysqlDBConexion.getConexion();
             //EJECUTAMOS SENTENCIA SQL
             stm = cnx.prepareStatement(sql);
-            stm.setString(1, idvendedor);
             //LECTURA DE LOS DATOS QUE DEBUELVE LA BD
             rs = stm.executeQuery();
             //CREAMOS OBJETO PRODUCTO
@@ -61,7 +60,62 @@ public class DaoVendedor {
         }
         return lst;
     }
-
+    public Vendedor ConsultarVendedoresId(String idvendedor) 
+    {
+            List<Vendedor> lst = new ArrayList<Vendedor>();
+            String sql = "select p.id_persona,p.nombre,p.primerapellido,p.segundoapellido,p.email,p.telefono,p.activo,p.direccion,p.id_tipodireccion,p.id_distrito from persona p where p.id_persona='"+
+                    idvendedor+"'";
+            Connection cnx= null;
+            ResultSet rs=null;
+            Statement stm = null;
+            Vendedor resp = new Vendedor();
+            try 
+        {
+            cnx = MysqlDBConexion.getConexion();
+            stm = cnx.createStatement();
+            rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                Vendedor v = new Vendedor();
+                v.setId(rs.getInt(1));
+                v.setNombre(rs.getString(2));
+                v.setPrimerapellido(rs.getString(3));
+                v.setSegundoapellido(rs.getString(4));
+                v.setEmail(rs.getString(5));
+                v.setTelefono(rs.getString(6));
+                v.setActivo(rs.getInt(7));
+                v.setDireccion(rs.getString(8));
+                v.setTipodireccion(rs.getInt(9));
+                v.setDistrito(rs.getInt(10));
+                lst.add(v);
+                
+            }
+            for(Vendedor aux :lst)
+            {
+                resp=aux;
+            }
+            cnx.close();
+            
+            
+        } 
+       catch (Exception e) 
+        {
+                e.printStackTrace();
+                System.out.print(e);
+        } 
+        finally
+        {
+                try 
+                {
+                        if(rs!= null) rs.close();
+                        if(stm!= null) stm.close();
+                        if(cnx!= null) cnx.close();
+                } 
+                catch (Exception e2) 
+                {
+                }
+        }
+        return resp;
+    }
 
     public void insertarVendedor(Vendedor vendedorNuevo) {
         String sql = "insert into persona(id_persona,nombre,primerapellido,segundoapellido,email,telefono,activo,direccion, id_tipodireccion,id_distrito) values (NULL,UPPER(?), UPPER(?), UPPER(?), UPPER(?), ?, ?, UPPER(?), ?, ?)";
@@ -169,5 +223,53 @@ public class DaoVendedor {
             }
         }
         return ven;
+    }
+    public Vendedor editar(Vendedor ven) 
+    {
+        int id = ven.getId();
+        String nombre= ven.getNombre();
+        String primerapellido= ven.getPrimerapellido();
+        String segundoapellido= ven.getSegundoapellido();
+        String email= ven.getEmail();
+        String telefono= ven.getTelefono();
+        int activo= ven.getActivo();
+        String direccion= ven.getDireccion();
+        int tipodireccion= ven.getTipodireccion();
+        int distrito=ven.getDistrito();
+
+        String sql = "update persona set nombre='"+nombre+"',primerapellido='"+primerapellido+"',segundoapellido='"+segundoapellido+"',email='"+email+"',telefono='"+telefono+"',activo="+activo+",direccion='"+direccion+"',id_tipodireccion="+tipodireccion+",id_distrito="+distrito+" where id_persona="+id;
+        //Connection cnx = getConnection();
+        Connection cnx= null;
+        Statement stm = null;
+        Vendedor v = null;
+        try 
+        {
+            //ABRE CONEXION CON BASE DE DATOS
+            cnx = MysqlDBConexion.getConexion();
+            //EJECUTAMOS SENTENCIA SQL
+            stm = cnx.createStatement();
+            stm.executeUpdate(sql);
+
+            cnx.close();
+            
+            
+        } 
+       catch (Exception e) 
+        {
+                e.printStackTrace();
+                System.out.print(e);
+        } 
+        finally
+        {
+                try 
+                {
+                        if(stm!= null) stm.close();
+                        if(cnx!= null) cnx.close();
+                } 
+                catch (Exception e2) 
+                {
+                }
+        }
+        return v;
     }
 }

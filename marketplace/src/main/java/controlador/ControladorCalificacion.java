@@ -6,12 +6,14 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.DaoTienda;
+import modelo.Tienda;
 
 /**
  *
@@ -94,15 +96,19 @@ public class ControladorCalificacion extends HttpServlet {
             //OBTENGO CODTIENDA Y CODPEDIDO
             prmuser = request.getParameter("user");
             action = request.getParameter("action");
+            prmTienda = request.getParameter("txtTienda");
             
             DaoTienda daoTienda = new DaoTienda();
             
             if(action.equals("1")){
-                prmTienda = request.getParameter("txtTienda");
                 
+                System.out.println("US: "+prmuser);
                 idcalificacion= daoTienda.Calificacion(prmuser,prmTienda);
+                List<Tienda> lista=daoTienda.ConsularComentarios(prmTienda);
                 request.setAttribute("id_cal", idcalificacion);
                 request.setAttribute("user", prmuser);
+                request.setAttribute("tienda", lista);
+                request.setAttribute("txtTienda", prmTienda);
                 request.getRequestDispatcher("/Calificacion.jsp").
                                             forward(request, response);
             }else{

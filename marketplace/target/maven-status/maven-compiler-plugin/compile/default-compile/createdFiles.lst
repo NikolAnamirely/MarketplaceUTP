@@ -4,6 +4,7 @@ modelo\DaoTienda.class
 controlador\ControladorEditarOrdenPedido.class
 controlador\ControladorBuscarTienda.class
 controlador\ControladorEliminarProd.class
+controlador\ControladorTiendaId.class
 modelo\Vendedor.class
 controlador\ControladorProductoCatalogo.class
 controlador\ControladorRegistroId.class
@@ -22,6 +23,8 @@ controlador\ControladorEliminarPedido.class
 controlador\ControladorClienteNuevo.class
 controlador\ControladorBuscarAdmin.class
 modelo\Tienda.class
+controlador\ControladorEditarTienda.class
+controlador\ControladorVendedorId.class
 modelo\Administrador.class
 modelo\DaoCliente.class
 controlador\ControladorProductoTienda.class
@@ -30,7 +33,9 @@ modelo\DaoDetalle.class
 controlador\ControladorFinalizarPedidoProd.class
 modelo\Usuario.class
 controlador\ControladorBuscarPedido.class
+controlador\ControladorClienteId.class
 controlador\ControladorCalificacion.class
+controlador\ControladorMostrarVendedoresAdmi.class
 controlador\ControladorAgregarProd.class
 controlador\ControladorListarTiendas.class
 controlador\ControladorListarPorDistrito.class
@@ -40,6 +45,10 @@ controlador\ControladorAutentificar.class
 modelo\Seleccionar.class
 controlador\ControladorMostrarReportes.class
 controlador\ControladorFinalizarPedido.class
+controlador\ControladorMostrarClientesAdmi.class
+controlador\ControladorEditarVendedor.class
+controlador\ControladorEditarCliente.class
+controlador\ControladorMostrarTiendasAdmi.class
 controlador\ControladorObtenerSelect.class
 controlador\ControladorEditarProducto.class
 controlador\ControladorPedidoId.class
