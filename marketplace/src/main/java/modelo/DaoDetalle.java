@@ -68,9 +68,9 @@ public class DaoDetalle {
         } 
         return subtotal;
     }
-     public void eliminar(String idProd) 
+     public void eliminar(String idProd,String idped) 
     {
-            String sql = "delete from detalle_pedido where id_producto='"+idProd+"'";
+            String sql = "delete from detalle_pedido where id_producto='"+idProd+"' and id_pedido='"+idped+"'";
             
             Connection cnx= null;
             ResultSet rs=null;
@@ -113,7 +113,7 @@ public class DaoDetalle {
                 p.setCodproducto(rs.getString(1));
                 p.setProducto(rs.getString(2));
                 p.setUnidades(rs.getString(3));
-                p.setCantidad(rs.getInt(4));
+                p.setCantidad(rs.getDouble(4));
                 p.setTotal(Math.round(rs.getFloat(5)*100.0)/100.0);
                 p.setPedido(rs.getString(6));
                 p.setCosto(rs.getDouble(7));

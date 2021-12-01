@@ -99,6 +99,11 @@ public class ControladorMostrarPedidos extends HttpServlet {
             request.setAttribute("listPed", lista);
             request.setAttribute("txtTienda", prmtienda);
             
+            String prmusuario = request.getParameter("txtUsuario");
+            request.setAttribute("txtUsuario", prmusuario);
+            
+            System.out.println("U:"+prmusuario);
+            
             request.getRequestDispatcher("/PedidoAdm.jsp").
                                             forward(request, response);
     }

@@ -89,7 +89,8 @@
     </header>
 <%
                         Producto lista = (Producto)request.getAttribute("edit");
-                        String cod = (String)request.getAttribute("codp");  
+                        String cod = (String)request.getAttribute("codp"); 
+                        String user = (String)request.getAttribute("user");
                         if(lista!= null)
                         {
                             
@@ -97,88 +98,54 @@
     <!-- Start editar formulario -->
     	<div class="contact-box-main">
             <div class="container">
-                       
-                        <form action="ControladorProductoCatalogo">
-                            <input  name="txtTienda" style="border:0;" value="<%=lista.getTienda()%>" type="hidden">
-                            <input  name="codped" style="border:0;" value="<%=cod%>" type="hidden">
-                            
-                            <div class="row">	       
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        Codigo:
-                                        <input   style="border:0;" placeholder="<%=lista.getCodigo()%>" type="text">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <p>Nombre: </p>
-                                        <input type="text" class="form-control" style="border:0;"  placeholder="<%=lista.getNombre()%>">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        Categoria:
-                                        <input type="text" class="form-control"style="border:0;" placeholder="<%=lista.getCategoria()%>">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>  
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <p>Descripción:</p>
-                                        <input type="text" class="form-control" style="border:0;" placeholder="<%=lista.getDescripcion()%>">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <p>Costo: </p>
-                                        <input type="text" class="form-control" style="border:0;" placeholder="<%=lista.getCosto()%>">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>  
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        Marca:
-                                        <input type="text" class="form-control" style="border:0;" placeholder="<%=lista.getMarca()%>">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        Unidades
-                                        <input type="text" class="form-control" style="border:0;" placeholder="<%=lista.getUnidades()%>">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        Estado
-                                        <input type="text" class="form-control"  style="border:0;" placeholder="<%=lista.getEstado()%>">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                    Imagen referencial
-                                        <img src="ControladorIMG?id=<%= lista.getCodigo()%>" class="card-img-top" width="100%" height="100%">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                                                
-                                <div class="col-md-12">
-                                    <div class="submit-button text-center">
-                                        <button class="btn hvr-hover" id="submit" type="submit">Volver al catalogo</button>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div> 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                            <b>Imagen referencial</b>
+                                <img src="ControladorIMG?id=<%= lista.getCodigo()%>" class="card-img-top" width="100%" height="80%">
                             </div>
-                        </form>
-                
+                        </div>
+                        <div class="row my-6">
+                            <div class="col-lg-12 col-sm-12">
+                                <div class="order-box">
+                                    <h1><%=lista.getNombre()%></h1>
+                                    <div class="d-flex">
+                                        <h4><b>Categoria:  </b><%=lista.getCategoria()%></h4>
+                                    </div>
+                                    <div class="d-flex">
+                                        <h4><b>Descripción:  </b><%=lista.getDescripcion()%></h4>
+                                    </div>
+                                    <div class="d-flex">
+                                        <h4><b>Marca:  </b><%=lista.getMarca()%></h4>
+                                    </div>
+                                    <div class="d-flex">
+                                        <h4><b>Unidades:  </b><%=lista.getUnidades()%></h4>
+                                    </div>
+                                    <hr class="my-1">
+                                        <div class="d-flex">
+                                            <h4><b>Costo:  </b><%=lista.getCosto()%></h4>
+                                        </div>
+                                    <hr>
+                                    <form action="ControladorAgregarDetalle" > 
+                                        <div class="d-flex gr-total">
+                                            <h5>Cantidad:&nbsp &nbsp</h5> 
+                                            <div ><input type="number" step="0.01" min="0" max="50" name="cantidad" required/><%= lista.getUnidades()%></div>
+                                        </div>
+                                        <input type="submit" style="background:#d43b33; border:0;border-color: white; color:white; border-radius: 5px;padding-bottom: 3px;padding-left: 8px;padding-right: 8px;padding-top: 3px" value="Agregar">
+                                        <input type="hidden" name="codpr" value="<%= lista.getCodigo()%>"/>
+                                        <input type="hidden" name="costo" value="<%= lista.getCosto()%>"/><br>
+                                        <input type="hidden" name="codp" value="<%= cod %>"/>
+                                        <input type="hidden" name="coti" value="<%=lista.getTienda()%>"/>
+                                    </form>
+                                    <hr> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p align="center"><a href="ControladorProductoCatalogo?txtTienda=<%=lista.getTienda()%>&codped=<%=cod%>&user=<%=user%>"><img src="imagenes/atras.png"></a>&nbsp;&nbsp;&nbsp;<a href="index.jsp"><img src="imagenes/casa.png"></a></p>
+            
                 <br>
                 <br>
-                <p align="center"><a href="login.jsp"><img src="imagenes/atras.png"></a>&nbsp;&nbsp;&nbsp;<a href="index.jsp"><img src="imagenes/casa.png"></a></p>
             </div>
 	</div>
     <%      

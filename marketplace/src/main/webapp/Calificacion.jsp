@@ -157,10 +157,12 @@
                                 <div class="col-md-6">
                                 <%
                                     String cal = (String)request.getAttribute("id_cal");  
+                                    String tienda = (String)request.getAttribute("txtTienda");  
                                     String user = (String)request.getAttribute("user");  
                                 %>    
                                 <input type="hidden" name="id_cal" value="<%=cal%>"/>
                                 <input type="hidden" name="user" value="<%=user%>"/>
+                                <input type="hidden" name="txtTienda" value="<%=tienda%>"/>
                                 <input type="hidden" name="action" value="2"/>
                                 </div>
                             </div>

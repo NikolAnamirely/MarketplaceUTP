@@ -91,17 +91,19 @@ public class ControladorAgregarDetalle extends HttpServlet {
             throws ServletException, IOException 
     {
             //DECLARO VARIABLES
-            String cantidad,codPed,codProd,costo,cotienda;
+            String cantidad,codPed,codProd,costo,cotienda,prmuser;
             //OBTENGO VARIABLES           
             cantidad = request.getParameter("cantidad");
             codPed = request.getParameter("codp");
             codProd = request.getParameter("codpr");
             costo=request.getParameter("costo");
             cotienda=request.getParameter("coti");
-            System.out.print("cant:"+cotienda);
-            System.out.print("CodPed:"+codPed);
-            System.out.print("codProd:"+codProd);
-            System.out.print("costo:"+costo);
+            prmuser = request.getParameter("user");
+            
+            System.out.println("cant:"+cotienda);
+            System.out.println("CodPed:"+codPed);
+            System.out.println("codProd:"+codProd);
+            System.out.println("costo:"+costo);
             double cant=Double.parseDouble(cantidad);
             double cost=Double.parseDouble(costo);
             double total=cost*cant;
@@ -116,8 +118,7 @@ public class ControladorAgregarDetalle extends HttpServlet {
             DaoDetalle daoDetalle = new DaoDetalle();
             daoDetalle.insertar(detallenuevo);
 
-
-            request.getRequestDispatcher("ControladorProductoCatalogo?txtTienda="+cotienda+"&codped="+codPed+"").
+            request.getRequestDispatcher("ControladorProductoCatalogo?txtTienda="+cotienda+"&codped="+codPed+"&user"+prmuser).
                                             forward(request, response);
     }
 }

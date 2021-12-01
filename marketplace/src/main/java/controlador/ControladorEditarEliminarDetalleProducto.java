@@ -103,10 +103,12 @@ public class ControladorEditarEliminarDetalleProducto extends HttpServlet {
 
             String prmtienda;
             prmtienda = request.getParameter("txtTienda");
+            
+            String prmusuario = request.getParameter("txtUsuario");
            
             //ELEGIR ELIMINAR
             if(prmcriterio.equals("eliminar")){
-                daodet.eliminar(prmprod);
+                daodet.eliminar(prmprod,prmcodpedido);
             }else{
                 //PARAMETRO CANTIDAD
                 String  prmcantidad;
@@ -124,7 +126,13 @@ public class ControladorEditarEliminarDetalleProducto extends HttpServlet {
                 deta.setTotal(total);
                 daodet.editar(deta);
             }
-            request.getRequestDispatcher("ControladorMostrarPedidoPorCod?codigoPed="+prmcodpedido+"&txtTienda="+prmtienda).
+            
+            
+            System.out.println("U:"+prmusuario);
+            System.out.println("U:"+prmtienda);
+            System.out.println("U:"+prmcodpedido);
+                        
+            request.getRequestDispatcher("ControladorMostrarPedidoPorCod?idped="+prmcodpedido+"&txtTienda="+prmtienda+"&txtUsuario="+prmusuario).
                                             forward(request, response);
     }
 }

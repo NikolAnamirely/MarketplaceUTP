@@ -102,6 +102,10 @@ public class ControladorOrdenPedidoId extends HttpServlet {
             //ENVIAR OBJETO
             request.setAttribute("edit", obPedido);
 
+            String prmusuario = request.getParameter("txtUsuario");
+            request.setAttribute("txtUsuario", prmusuario);
+            System.out.println("U:"+prmusuario);
+            
             //DEVOLVER A EDITAR
             request.getRequestDispatcher("ordenPedido.jsp").forward(request, response);
     }

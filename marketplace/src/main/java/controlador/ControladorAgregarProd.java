@@ -82,6 +82,7 @@ public class ControladorAgregarProd extends HttpServlet {
            String estadoS=request.getParameter("estado");
            String unidades=request.getParameter("unidad");
            String tienda=request.getParameter("tienda");
+           String prmusuario = request.getParameter("txtUsuario");
         //FOTO
            Part part=request.getPart("fileFoto");
            InputStream inputStream=part.getInputStream();
@@ -95,9 +96,9 @@ public class ControladorAgregarProd extends HttpServlet {
            Producto prod=new Producto();
            DaoProducto daoProductos = new DaoProducto();
            
-           //GENERO CODIGO MARCA, CATEGORIA
-           String idmarca=daoProductos.NuevoCodigo(marca,"marca");
-           String idcategoria=daoProductos.NuevoCodigo(categoria,"categoria");
+           
+           System.out.println("A:"+prmusuario);
+           
            //CREO UN OBJETO
            prod.setCodigo(id);
            prod.setNombre(nombre);
@@ -105,13 +106,13 @@ public class ControladorAgregarProd extends HttpServlet {
            prod.setEstado(estado);
            prod.setTienda(tienda);
            prod.setDescripcion(desc);
-           prod.setMarca(idmarca);
-           prod.setCategoria(idcategoria);
+           prod.setMarca(marca);
+           prod.setCategoria(categoria);
            prod.setUnidades(unidades);
            prod.setFoto(inputStream);
            daoProductos.insertar(prod);
            //DEVUELCO RSPUESTA AL CATALOGO DE LA TIENDA
-           request.getRequestDispatcher("ControladorProductoTienda?txtTienda="+tienda+"&termino=nada&criterio=nada").
+           request.getRequestDispatcher("ControladorProductoTienda?txtTienda="+tienda+"&txtUsuario="+prmusuario+"&termino=nada&criterio=nada").
                                            forward(request, response);
     
     }

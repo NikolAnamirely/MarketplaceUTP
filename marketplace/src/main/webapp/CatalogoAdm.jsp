@@ -109,7 +109,8 @@
 
 <!-- End All Title Box -->
 <%
-                                String codigoTi = (String)request.getAttribute("CodTienda");  
+        String codigoTi = (String)request.getAttribute("CodTienda");  
+        String us = (String)request.getAttribute("txtUsuario");
                             %>
 <!-- Start tabla productos  -->
 
@@ -120,7 +121,7 @@
                     <div class="row">
                         <div class="col-lg-3 col-sm-1"></div>
                         <div class="col-lg-4 col-sm-4">
-                            <p align="center" ><a href="ControladorCargarCriteriosProducto?txtTienda=<%=codigoTi%>"><button style="color: white; width: 150%" class="btn hvr-hover" id="submit">Crear producto nuevo</button></a></p>
+                            <p align="center" ><a href="ControladorCargarCriteriosProducto?txtTienda=<%=codigoTi%>&txtUsuario=<%=us%>"><button style="color: white; width: 150%" class="btn hvr-hover" id="submit">Crear producto nuevo</button></a></p>
                         </div>
                         <div class="col-lg-3 col-sm-1"></div>
                     </div>
@@ -137,7 +138,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-10 col-sm-1">
-                            
+                            <input type="hidden" class="form-control" name="txtUsuario" value="<%=us%>" >
                             <input type="hidden" name="txtTienda" value="<%=codigoTi%>"/>
                         </div>
                         <div class="col-lg-2 col-sm-1">
@@ -182,9 +183,9 @@
                                             Marca:<%= aux.getMarca() %> <br>
                                             Estado:<%= aux.getEstado() %><br>
                                             Unidad: <%= aux.getUnidades()%><br>
-                                            <a href="ControladorVistaProducto?idprod=<%= aux.getCodigo()%>&tien=<%=codigoTi%>&&crit=0" class="btn btn-primary" style="background:#cccdd7; border:0;border-color: white; color:black; border-radius: 5px; width: 71%;height: 35px;">Vista Rapida</a>
-                                            <a href="ControladorProductoId?idprod=<%= aux.getCodigo()%>" class="btn btn-primary" style="background:#d43b33; border:0;border-color: white; color:white; border-radius: 5px; width: 35%;height: 35px;">Editar</a>
-                                            <a href="ControladorEliminarProd?proeliminar=<%= aux.getCodigo()%>&txtTienda=<%=codigoTi%>" class="btn btn-primary" style="background:#d43b33; border:0; border-color: white;color:white; border-radius: 5px; width: 35%;height: 35px;">Eliminar</a>
+                                            <a href="ControladorVistaProducto?idprod=<%= aux.getCodigo()%>&tien=<%=codigoTi%>&txtUsuario=<%=us%>&crit=0" class="btn btn-primary" style="background:#cccdd7; border:0;border-color: white; color:black; border-radius: 5px; width: 71%;height: 35px;">Vista Rapida</a>
+                                            <a href="ControladorProductoId?idprod=<%= aux.getCodigo()%>&txtUsuario=<%=us%>" class="btn btn-primary" style="background:#d43b33; border:0;border-color: white; color:white; border-radius: 5px; width: 35%;height: 35px;">Editar</a>
+                                            <a href="ControladorEliminarProd?proeliminar=<%= aux.getCodigo()%>&txtTienda=<%=codigoTi%>&txtUsuario=<%=us%>" class="btn btn-primary" style="background:#d43b33; border:0; border-color: white;color:white; border-radius: 5px; width: 35%;height: 35px;">Eliminar</a>
 
                                         </p>
                                     </div>
@@ -198,7 +199,7 @@
                 <br>         
                             
 
-                <p align="center"><a href="login.jsp"><img src="imagenes/atras.png"></a>&nbsp;&nbsp;&nbsp;<a href="index.jsp"><img src="imagenes/casa.png"></a></p>
+                <p align="center"><a href="ControladorBuscarTienda?txtUsuario=<%=us%>"><img src="imagenes/atras.png"></a>&nbsp;&nbsp;&nbsp;<a href="index.jsp"><img src="imagenes/casa.png"></a></p>
             </div>
 	</div>
 <!-- End tabla productos  -->

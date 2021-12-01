@@ -136,6 +136,7 @@
                                 <div class="col-md-12">
                                 <%
                                     String codigoTi = (String)request.getAttribute("CodTienda");  
+                                    String us = (String)request.getAttribute("txtUsuario");
                                 %>    
                                 <input type="hidden" name="tienda" value="<%=codigoTi%>"/>
                                 </div>
@@ -238,6 +239,7 @@
                                 </div> 
                                 <div class="col-md-12">
                                     <div class="submit-button text-center">
+                                        <input type="hidden" class="form-control" name="txtUsuario" value="<%=us%>" >
                                         <button class="btn hvr-hover" id="submit" type="submit">Crear</button>
                                         <div id="msgSubmit" class="h3 text-center hidden"></div>
                                         <div class="clearfix"></div>

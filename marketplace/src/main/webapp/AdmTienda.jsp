@@ -124,6 +124,7 @@
                 <div class="col-lg-8 col-md-8 col-sm-12">
                 <%
                     List<Tienda> lista = (List<Tienda>)request.getAttribute("listTi");   
+                    String us = (String)request.getAttribute("txtUsuario"); 
                     
                     String calificacion="";
                     if(lista != null)
@@ -150,7 +151,7 @@
                                     <div class="card">
                                         <img src="imagenes/catalogo.png" class="card-img-top">
                                         <div class="card-body">
-                                            <a href="ControladorProductoTienda?txtTienda=<%= aux.getId()%>&termino=nada&criterio=nada"><h5 class="card-title">Catalogo de productos</h5></a>
+                                            <a href="ControladorProductoTienda?txtTienda=<%= aux.getId()%>&txtUsuario=<%=us%>&termino=nada&criterio=nada"><h5 class="card-title">Catalogo de productos</h5></a>
 
                                         </div>
                                     </div>
@@ -159,7 +160,7 @@
                                     <div class="card">
                                         <img src="imagenes/atencion.png" class="card-img-top">
                                         <div class="card-body">
-                                            <a href="ControladorMostrarPedidosAten?txtTienda=<%= aux.getId()%>"><h5 class="card-title">Ateción de pedidos</h5></a>
+                                            <a href="ControladorMostrarPedidosAten?txtTienda=<%= aux.getId()%>&txtUsuario=<%=us%>"><h5 class="card-title">Ateción de pedidos</h5></a>
 
                                         </div>
                                     </div>
@@ -168,7 +169,7 @@
                                     <div class="card">
                                         <img src="imagenes/reporte.png" class="card-img-top" alt="...">
                                         <div class="card-body">
-                                            <a href="ControladorMostrarReportes?txtTienda=<%= aux.getId()%>"><h5 class="card-title">Reportes de Pedidos</h5></a>
+                                            <a href="ControladorMostrarReportes?txtTienda=<%= aux.getId()%>&txtUsuario=<%=us%>"><h5 class="card-title">Reportes de Pedidos</h5></a>
 
                                         </div>
                                     </div>
@@ -177,7 +178,7 @@
                                     <div class="card">
                                         <img src="imagenes/pedidos.png" class="card-img-top" alt="...">
                                         <div class="card-body">
-                                            <a href="ControladorMostrarPedidos?txtTienda=<%= aux.getId()%>"><h5 class="card-title">Pedidos</h5></a>
+                                            <a href="ControladorMostrarPedidos?txtTienda=<%= aux.getId()%>&txtUsuario=<%=us%>"><h5 class="card-title">Pedidos</h5></a>
 
                                         </div>
                                     </div>

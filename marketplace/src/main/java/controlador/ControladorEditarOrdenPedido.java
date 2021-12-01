@@ -103,7 +103,7 @@ public class ControladorEditarOrdenPedido extends HttpServlet {
            String repartidor=request.getParameter("repartidor");
            String ordenpedido=request.getParameter("ordenpedido");
            String id_usuario =(request.getParameter("id_usuario"));
-           
+           String prmusuario = request.getParameter("txtUsuario");
            
            Pedido ped=new Pedido();
            DaoPedido daoPedidos = new DaoPedido();
@@ -122,8 +122,10 @@ public class ControladorEditarOrdenPedido extends HttpServlet {
            //ENVIO AL DAO
            daoPedidos.editar(ped);
            
+           System.out.println("U:"+prmusuario);
+           
 
-           request.getRequestDispatcher("index.jsp").
+           request.getRequestDispatcher("ControladorBuscarTienda?txtUsuario="+prmusuario).
                                            forward(request, response);
     }
 }

@@ -87,6 +87,7 @@
     </header>
 <%
                         Pedido lista = (Pedido)request.getAttribute("edit");  
+                        String us = (String)request.getAttribute("txtUsuario");
                         if(lista!= null)
                         {
                           
@@ -131,6 +132,9 @@
                                             <option selected hidden><%=lista.getRepartidor()%></option>
                                             <option value="Ismael Podestá">Ismael Podestá</option>
                                             <option value="Luccas Mosto">Luccas Mosto</option>
+                                            <option value="Daniel Medina">Daniel Medina</option>
+                                            <option value="Thomas Hidden">Thomas Hidden</option>
+                                            <option value="Timote Theodopolis">Timote Theodopolis</option>
                                         </select>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -174,6 +178,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <input type="hidden" class="form-control" name="id_usuario" value="<%=lista.getId_usuario()%>" >
+                                        <input type="hidden" class="form-control" name="txtUsuario" value="<%=us%>" >
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div> 
@@ -196,7 +201,7 @@
                 
                 <br>
                 <br>
-                <p align="center"><a href="login.jsp"><img src="imagenes/atras.png"></a>&nbsp;&nbsp;&nbsp;<a href="index.jsp"><img src="imagenes/casa.png"></a></p>
+                <p align="center"><a href="ControladorBuscarTienda?txtUsuario=<%=us%>"><img src="imagenes/atras.png"></a>&nbsp;&nbsp;&nbsp;<a href="index.jsp"><img src="imagenes/casa.png"></a></p>
             </div>
         <%
             }

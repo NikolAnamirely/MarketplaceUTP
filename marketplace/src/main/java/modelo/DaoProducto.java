@@ -279,6 +279,60 @@ public class DaoProducto
         }
         return lst;
     }
+    public List<Producto> BuscarProductosTiendaCatalogo(String criterio,String idtienda,String producto) 
+    {
+            List<Producto> lst = new ArrayList<Producto>();
+            String sql = "select p.id_producto,p.nombre,u.unidad,m.nombre,p.costo,p.estado,p.imagen,p.descripcion from producto p inner join marca m on p.id_marca=m.id_marca inner join unidades_medida u on p.id_unidades=u.id_unidades inner join categoria c on p.id_categoria=c.id_categoria where p.estado=1 and p.id_tienda="+
+                            idtienda+" AND "+criterio+"= '"+producto+"'";
+            //Connection cnx = getConnection();
+            Connection cnx= null;
+            ResultSet rs=null;
+            Statement stm = null;
+        try 
+        {
+            cnx = MysqlDBConexion.getConexion();
+            stm = cnx.createStatement();
+            
+            rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                Producto c = new Producto();
+                
+                c.setCodigo(rs.getString(1));
+                c.setNombre(rs.getString(2));
+                c.setUnidades(rs.getString(3));
+                c.setMarca(rs.getString(4));
+                c.setCosto(rs.getDouble(5));
+                if(rs.getString(6).equals("1"))
+                    c.setEstado("En stock");
+                else 
+                    c.setEstado("Agotado");
+                c.setFoto(rs.getBinaryStream(7));
+                c.setDescripcion(rs.getString(8));
+                
+                lst.add(c);
+            }
+            cnx.close();
+            
+            
+        } 
+       catch (Exception e) 
+        {
+                e.printStackTrace();
+        } 
+        finally
+        {
+                try 
+                {
+                        if(rs!= null) rs.close();
+                        if(stm!= null) stm.close();
+                        if(cnx!= null) cnx.close();
+                } 
+                catch (Exception e2) 
+                {
+                }
+        }
+        return lst;
+    }
      public Producto ConsultarProductosId(String idproducto) 
     {
             List<Producto> lst = new ArrayList<Producto>();

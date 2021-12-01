@@ -109,22 +109,24 @@
               
                 <table style="width: 100%; border: 1px solid #ced4da;">
                         <tr class= "tablaspern" style="width: 100%;background: #495057;">
-                            <td style="width: 10%;">Codigo</td>
-                            <td style="width: 10%;">Estado</td>
-                            <td style="width: 10%;">Subtotal</td>
-                            <td style="width: 10%;">Igv</td>
-                            <td style="width: 10%;">Total</td>
-                            <td style="width: 10%;">Fecha creación</td>
-                            <td style="width: 15%;">Fecha entrega</td>
-                            <td style="width: 15%;">Hora entrega</td>
-                            <td style="width: 15%;">Tipo Pago</td>
-                            <td style="width: 5%;">Editar</td>
-                            <td style="width: 5%;">Cant.Prod</td>
-                            <td style="width: 5%;">Eliminar</td>
+                            <td>Codigo</td>
+                            <td>Estado</td>
+                            <td>Subtotal</td>
+                            <td>Igv</td>
+                            <td>Total</td>
+                            <td>Fecha creación</td>
+                            <td>Fecha entrega</td>
+                            <td>Hora entrega</td>
+                            <td>Tipo Pago</td>
+                            <td>Programar</td>
+                            <td>Cant.Prod</td>
+                            <td>Eliminar</td>
                         </tr> 
                          <%
                             List<Pedido> lista = (List<Pedido>)request.getAttribute("listPed");   
-                            String tienda = (String)request.getAttribute("txtTienda");   
+                            String tienda = (String)request.getAttribute("txtTienda");  
+                            String us = (String)request.getAttribute("txtUsuario");
+                            
                             if(lista != null)
                             {
                                 for(Pedido aux :lista)
@@ -133,11 +135,14 @@
                                     if(aux.getEstado().equals("1")){
                                         es="Activo";
                                     }else{
-                                        es="Atendido";
+                                        if(aux.getEstado().equals("2")){
+                                            es="Atendido";
+                                        }else{
+                                            es="Entregado";
+                                        }
                                     }
-                         
                         %>
-                                    <tr class="grilla_campo"> 
+                                    <tr class="grilla_campo" style="height: 60px"> 
                                         <td style="text-align: center"><%= aux.getId()%></td>
                                            <td style="text-align: center"><%=es%></td>
                                            <td style="text-align: center"><%= aux.getSubtotal()%></td>
@@ -147,9 +152,9 @@
                                            <td style="text-align: center"><%= aux.getFecha_entrega()%></td>
                                            <td style="text-align: center"><%= aux.getHora()%></td>
                                            <td style="text-align: center"><%= aux.getTipoPago()%></td>
-                                           <td align="center"><a href="ControladorPedidoId?idped=<%=aux.getId()%>"><img src="imagenes/editar.png"></a></td>
-                                           <td align="center"><a href="ControladorMostrarPedidoPorCod?idped=<%=aux.getId()%>&txtTienda=<%=tienda%>"><img src="imagenes/editar.png"></a></td>
-                                           <td align="center"><a href="ControladorEliminarPedido?pedeliminar=<%=aux.getId()%>"><img src="imagenes/eliminar.png"></a></td>
+                                           <td align="center"><a href="ControladorPedidoId?idped=<%=aux.getId()%>&txtTienda=<%=tienda%>&txtUsuario=<%=us%>"><img src="images/hora.png"></a></td>
+                                           <td align="center"><a href="ControladorMostrarPedidoPorCod?idped=<%=aux.getId()%>&txtTienda=<%=tienda%>&txtUsuario=<%=us%>"><img src="images/editar.png"></a></td>
+                                           <td align="center"><a href="ControladorEliminarPedido?pedeliminar=<%=aux.getId()%>&txtTienda=<%=tienda%>&txtUsuario=<%=us%>"><img src="images/eliminar.png"></a></td>
                                     </tr>
                             <%      }
                             } %>
@@ -158,7 +163,7 @@
                 <br>
                 <br>
             <!-- End buscar productos  -->
-                <p align="center"><a href="login.jsp"><img src="imagenes/atras.png"></a>&nbsp;&nbsp;&nbsp;<a href="index.jsp"><img src="imagenes/casa.png"></a></p>
+                <p align="center"><a href="ControladorBuscarTienda?txtUsuario=<%=us%>"><img src="imagenes/atras.png"></a>&nbsp;&nbsp;&nbsp;<a href="index.jsp"><img src="imagenes/casa.png"></a></p>
             </div>
 	</div>
 <!-- End tabla productos  -->

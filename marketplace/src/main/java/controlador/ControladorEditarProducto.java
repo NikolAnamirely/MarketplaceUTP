@@ -121,7 +121,11 @@ public class ControladorEditarProducto extends HttpServlet {
             if(inputStream.available() != 0){
             daoProductos.editarImagen(prod);}
            
-
+            
+            //RECIBIR Y ENVIAR USUARIO
+            String prmusuario = request.getParameter("txtUsuario");
+            request.setAttribute("txtUsuario", prmusuario);
+            System.out.println("A:"+prmusuario);
            request.getRequestDispatcher("ControladorProductoTienda?txtTienda="+tienda+"&termino=nada&criterio=nada").
                                            forward(request, response);
     }

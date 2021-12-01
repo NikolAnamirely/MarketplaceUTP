@@ -122,8 +122,13 @@ public class ControladorEditarPedido extends HttpServlet {
            //ENVIO AL DAO
            daoPedidos.editar(ped);
            
+            String prmusuario = request.getParameter("txtUsuario");
+            request.setAttribute("txtUsuario", prmusuario);
+            String prmtienda = request.getParameter("txtTienda");
+            request.setAttribute("txtTienda", prmtienda);
 
-           request.getRequestDispatcher("editarPedido.jsp").
+            System.out.println("U:"+prmusuario);
+           request.getRequestDispatcher("ControladorMostrarPedidos?txtTienda="+prmtienda+"&txtUsuario="+prmusuario).
                                            forward(request, response);
     }
 }

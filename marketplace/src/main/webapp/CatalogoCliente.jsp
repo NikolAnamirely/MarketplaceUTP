@@ -64,6 +64,10 @@
             </div>
         </div>
     </div>
+<%
+    String codped = (String)request.getAttribute("codpedido");
+    
+    %>
 <!-- BARRA NAVEGACIÓN-->
     <header class="main-header">
         <!-- Start Navigation -->
@@ -84,6 +88,7 @@
                             <li class="nav-item"><a class="nav-link" href="ControladorCargarCriteriosCliente">Registrar cliente</a></li>  
                             <li class="nav-item"><a class="nav-link" href="ControladorCargarCriteriosVendedor">Registrar vendedor</a></li> 
                             <li class="nav-item"><a class="nav-link" href="login.jsp">Iniciar sesion</a></li>
+                            <li class="nav-item"><a class="nav-link" href="ControladorRegistrarPedidoPorCod?codigoPed=<%=codped%>"><img src="images/carrito.png" "></a></li>
                         </ul>
                     </div>
 
@@ -121,26 +126,43 @@
         </div>
     </div>
 <!-- End All Title Box -->
-<%
-    String codped = (String)request.getAttribute("codpedido");
-    
-    %>
+
 <!-- Start tabla productos  -->
 	<div class="contact-box-main">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-sm-3"></div>
-                    <div class="col-lg-4 col-sm-4">
-                        <form action="ControladorRegistrarPedidoPorCod" >
-                            <input type="hidden" name="codigoPed" value="<%=codped%>"/>
-                            <p align="center"><input  style="color: white; width: 150%; align-items: center" class="btn hvr-hover" type="submit" id="submit" value="Detalles del pedido"></p>
-                        </form>
-                        
-                    </div>
-                     <div class="col-lg-4 col-sm-4"></div>
-                </div>
                 
-                <br>
+                <ul class="nav">
+                    <li class="nav-item">
+                      <a class="nav-link" href="ControladorBuscarCatalogo?txtTermino=Bebidas&txtTienda=<%=codtien%>&txtPedido=<%=codped%>&criterio=c.nombre&user=<%=user%>">Bebidas</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="ControladorBuscarCatalogo?txtTermino=Frutas&txtTienda=<%=codtien%>&txtPedido=<%=codped%>&criterio=c.nombre&user=<%=user%>">Frutas</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="ControladorBuscarCatalogo?txtTermino=Tecnología&txtTienda=<%=codtien%>&txtPedido=<%=codped%>&criterio=c.nombre&user=<%=user%>">Tecnología</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="ControladorBuscarCatalogo?txtTermino=Verduras&txtTienda=<%=codtien%>&txtPedido=<%=codped%>&criterio=c.nombre&user=<%=user%>">Verduras</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="ControladorBuscarCatalogo?txtTermino=Mascotas&txtTienda=<%=codtien%>&txtPedido=<%=codped%>&criterio=c.nombre&user=<%=user%>">Mascotas</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="ControladorBuscarCatalogo?txtTermino=Juegos&txtTienda=<%=codtien%>&txtPedido=<%=codped%>&criterio=c.nombre&user=<%=user%>">Juegos</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="ControladorBuscarCatalogo?txtTermino=Embutidos&txtTienda=<%=codtien%>&txtPedido=<%=codped%>&criterio=c.nombre&user=<%=user%>">Embutidos</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="ControladorBuscarCatalogo?txtTermino=Cereal&txtTienda=<%=codtien%>&txtPedido=<%=codped%>&criterio=c.nombre&user=<%=user%>">Cereal</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="ControladorBuscarCatalogo?txtTermino=Menestras&txtTienda=<%=codtien%>&txtPedido=<%=codped%>&criterio=c.nombre&user=<%=user%>">Menestras</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="ControladorBuscarCatalogo?txtTermino=Medicina&txtTienda=<%=codtien%>&txtPedido=<%=codped%>&criterio=c.nombre&user=<%=user%>">Medicinas</a>
+                    </li>
+                </ul>
                 <form  action="ControladorBuscarCatalogo" >
                     <div class="row">
                         <div class="col-lg-10 col-sm-1">       
@@ -153,6 +175,7 @@
                     <div class="row">
                         <div class="col-lg-10 col-sm-1">
                             <input type="hidden" name="txtTienda" value="<%=codtien%>"/>
+                            <input type="hidden" name="user" value="<%=user%>"/>
                         </div>
                         <div class="col-lg-10 col-sm-1">
                             <input type="hidden" name="txtPedido" value="<%=codped%>"/>
@@ -198,7 +221,7 @@
                                             Cantidad:<input type="number" step="0.01" min="0" max="50" name="cantidad" required/><%= aux.getUnidades()%><br>
                                             <input type="hidden" name="codp" value="<%=codped%>"/>
                                             <input type="hidden" name="coti" value="<%=codtien%>"/>
-                                            <a href="ControladorVistaProducto?idprod=<%= aux.getCodigo()%>&tien=<%=codtien%>&crit=1&codp=<%=codped%>" class="btn btn-primary" style="background:#cccdd7; border:0;border-color: white; color:black; border-radius: 5px; width: 71%;height: 35px;">Vista Rapida</a>
+                                            <a href="ControladorVistaProducto?idprod=<%= aux.getCodigo()%>&tien=<%=codtien%>&crit=1&codp=<%=codped%>&user=<%=user%>" class="btn btn-primary" style="background:#cccdd7; border:0;border-color: white; color:black; border-radius: 5px; width: 71%;height: 35px;">Vista Rapida</a>
                                             <input type="submit" style="background:#d43b33; border:0;border-color: white; color:white; border-radius: 5px; width: 71%;height: 35px;" value="Agregar">
                                         </p>
                                     </div>
@@ -216,19 +239,6 @@
                 <!-- Start buscar productos  -->
                 
                 <br>
-                <div class="row">
-                    <div class="col-lg-3 col-sm-3"></div>
-                    <div class="col-lg-4 col-sm-4">
-                        <form action="ControladorCalificacion" >
-                            <input type="hidden" name="user" value="<%=user%>"/>
-                            <input type="hidden" name="txtTienda" value="<%=codtien%>"/>
-                            <input type="hidden" name="action" value="1"/>
-                            <p align="center"><input  style="color: white; width: 150%; align-items: center" class="btn hvr-hover" type="submit" id="submit" value="Califica la Tienda"></p>
-                        </form>
-                        
-                    </div>
-                     <div class="col-lg-4 col-sm-4"></div>
-                </div>
                 <p align="center"><a href="login.jsp"><img src="imagenes/atras.png"></a>&nbsp;&nbsp;&nbsp;<a href="index.jsp"><img src="imagenes/casa.png"></a></p>
             </div>
 	</div>

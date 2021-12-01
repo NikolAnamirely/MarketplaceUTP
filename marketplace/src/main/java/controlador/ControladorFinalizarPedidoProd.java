@@ -93,6 +93,7 @@ public class ControladorFinalizarPedidoProd extends HttpServlet {
             prmPedido = request.getParameter("codigoPed");
             String prmtienda;
             prmtienda = request.getParameter("txtTienda");
+            String prmusuario = request.getParameter("txtUsuario");
             //LLAMO AL DAO
             DaoPedido daoPedidos = new DaoPedido();
             //LLENO LOS TOTALES
@@ -104,8 +105,10 @@ public class ControladorFinalizarPedidoProd extends HttpServlet {
             request.setAttribute("codpedido", prmPedido);
             //DEVUELVO EL OBJETO PEDIDO
             request.setAttribute("edit", obPedido);
+            
+            System.out.println("U:"+prmusuario);
             //MUESTRO EN REGISTRAR PEDIDO
-            request.getRequestDispatcher("ControladorMostrarPedidos?txtTienda="+prmtienda).
+            request.getRequestDispatcher("ControladorMostrarPedidos?txtTienda="+prmtienda+"&txtUsuario="+prmusuario).
                                             forward(request, response);
     }
 }

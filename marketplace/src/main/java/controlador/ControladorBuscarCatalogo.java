@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import modelo.DaoProducto;
+import modelo.DaoTienda;
 import modelo.Producto;
+import modelo.Tienda;
 
 /**
  *
@@ -92,18 +94,24 @@ public class ControladorBuscarCatalogo extends HttpServlet {
             throws ServletException, IOException 
     {
         
-        String prmTienda,prmpedido,prmcriterio,prmtermino;
+        String prmTienda,prmpedido,prmcriterio,prmtermino,prmuser;
         prmTienda = request.getParameter("txtTienda");
         prmpedido = request.getParameter("txtPedido");
         prmcriterio = request.getParameter("criterio");
         prmtermino = request.getParameter("txtTermino");
+        prmuser = request.getParameter("user");
+        DaoTienda daoTienda = new DaoTienda();
         DaoProducto daoProductos = new DaoProducto();
-        List<Producto> lista = daoProductos.BuscarProductos(prmcriterio, prmTienda, prmtermino);
-
+        List<Producto> lista = daoProductos.BuscarProductosTiendaCatalogo(prmcriterio, prmTienda, prmtermino);
+        
+        Tienda  c = daoTienda.ConsultarDatosTienda(prmTienda);
 
         request.setAttribute("prod", lista);
+        request.setAttribute("tienda", c);
         request.setAttribute("codpedido", prmpedido);
         request.setAttribute("codtienda", prmTienda);
+        request.setAttribute("user", prmuser);
+        
         request.getRequestDispatcher("/CatalogoCliente.jsp").
                                         forward(request, response);
 

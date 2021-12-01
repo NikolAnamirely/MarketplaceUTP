@@ -91,6 +91,10 @@
         <!-- End Navigation -->
     </header>
 <!-- End Main Top -->
+<%
+    String us = (String)request.getAttribute("txtUsuario");
+    String tienda = (String)request.getAttribute("txtTienda");
+ %>
 <!-- Start All Title Box -->
     <div class="all-title-box">
         <div class="container">
@@ -106,38 +110,75 @@
 <!-- Start tabla productos  -->
 	<div class="contact-box-main">
             <div class="container">
-              
+                 <form  action="ControladorMostrarPedidosAten" >
+                    <div class="row">
+                        <div class="col-lg-10 col-sm-1">       
+                            <input type="text" class="form-control" id="name" name="termino" placeholder="Buscar por un valor" required data-error="Ingrese un valor">
+                            <input type="hidden" class="form-control" name="txtUsuario" value="<%=us%>">
+                            <input type="hidden" class="form-control" name="txtTienda" value="<%=tienda%>">
+                            <input type="hidden" class="form-control" name="busqueda" value="buscar">
+                        </div>
+                        <div class="col-lg-2 col-sm-1">
+                            <button class="btn hvr-hover" style="color: white; width: 100%" id="submit" type="submit">Buscar</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-sm-1">
+                                <select class="combo" name="criterio">
+                                    <option selected hidden>Criterio</option>
+                                    <option value="p.id_pedido">Codigo</option>
+                                    <option value="p.estado">Estado</option>
+                                    <option value="p.tipopago">Tipo de Pago</option>
+                                    <option value="p.repartidor">Repartidor</option>
+                                    <option value="cliente">Cliente</option>
+                                    
+                                </select>
+                        </div>
+                    </div>
+                    
+                </form>
                 <table style="width: 100%; border: 1px solid #ced4da;">
                         <tr class= "tablaspern" style="width: 100%;background: #495057;">
-                            <td style="width: 10%;">Codigo</td>
-                            <td style="width: 10%;">Estado</td>
-                            <td style="width: 10%;">Orden Pedido</td>
-                            <td style="width: 10%;">Subtotal</td>
-                            <td style="width: 10%;">Igv</td>
-                            <td style="width: 10%;">Total</td>
-                            <td style="width: 10%;">Fecha creación</td>
-                            <td style="width: 15%;">Fecha entrega</td>
-                            <td style="width: 15%;">Hora entrega</td>
-                            <td style="width: 15%;">Tipo Pago</td>
-                            <td style="width: 10%;">Mod Orden Pedido</td>
+                            <td>Codigo</td>
+                            <td>Estado</td>
+                            <td>Orden Pedido</td>
+                            <td>Subtotal</td>
+                            <td>Igv</td>
+                            <td>Total</td>
+                            <td>Fecha creación</td>
+                            <td>Fecha entrega</td>
+                            <td>Hora entrega</td>
+                            <td>Tipo Pago</td>
+                            <td>Editar Orden Pedido</td>
                         </tr> 
                          <%
-                            List<Pedido> lista = (List<Pedido>)request.getAttribute("listPed");   
+                            List<Pedido> lista = (List<Pedido>)request.getAttribute("listPed");
+                            
                             if(lista != null)
                             {
                                 for(Pedido aux :lista)
                                 {
-                                    String es;
+                                    String es,ord;
                                     if(aux.getEstado().equals("1")){
                                         es="Activo";
                                     }else{
-                                        es="Pendiente";
+                                        if(aux.getEstado().equals("2")){
+                                            es="Atendido";
+                                        }else{
+                                            es="Entregado";
+                                        }
                                     }
+                                    if(aux.getOrdenpedido()==null){
+                                        ord="En Espera";
+                                    }else{
+                                        ord=aux.getOrdenpedido();
+                                    }
+                         
                         %>
-                                    <tr class="grilla_campo"> 
+                                    <tr class="grilla_campo" style="height: 60px"> 
                                         <td style="text-align: center"><%= aux.getId()%></td>
-                                           <td style="text-align: center"><%= aux.getEstado()%></td>
-                                           <td style="text-align: center"><%= aux.getOrdenpedido()%></td>
+                                           <td style="text-align: center"><%= es%></td>
+                                           <td style="text-align: center"><%= ord%></td>
                                            <td style="text-align: center"><%= aux.getSubtotal()%></td>
                                            <td style="text-align: center"><%= aux.getIgv()%></td>
                                            <td style="text-align: center"><%= aux.getTotal()%></td>
@@ -145,7 +186,7 @@
                                            <td style="text-align: center"><%= aux.getFecha_entrega()%></td>
                                            <td style="text-align: center"><%= aux.getHora()%></td>
                                            <td style="text-align: center"><%= aux.getTipoPago()%></td>
-                                           <td align="center"><a href="ControladorOrdenPedidoId?idped=<%=aux.getId()%>"><img src="imagenes/editar.png"></a></td>
+                                           <td align="center"><a href="ControladorOrdenPedidoId?idped=<%=aux.getId()%>&txtUsuario=<%=us%>"><img src="images/editar.png"></a></td>
                                     </tr>
                             <%      }
                             } %>
@@ -154,7 +195,7 @@
                 <br>
                 <br>
             <!-- End buscar productos  -->
-                <p align="center"><a href="login.jsp"><img src="imagenes/atras.png"></a>&nbsp;&nbsp;&nbsp;<a href="index.jsp"><img src="imagenes/casa.png"></a></p>
+                <p align="center"><a href="ControladorBuscarTienda?txtUsuario=<%=us%>"><img src="imagenes/atras.png"></a>&nbsp;&nbsp;&nbsp;<a href="index.jsp"><img src="imagenes/casa.png"></a></p>
             </div>
 	</div>
 <!-- End tabla productos  -->

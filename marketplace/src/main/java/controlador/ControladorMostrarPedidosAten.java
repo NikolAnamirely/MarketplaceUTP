@@ -91,12 +91,29 @@ public class ControladorMostrarPedidosAten extends HttpServlet {
             throws ServletException, IOException 
     {
 
-            String prmtienda;
+            String prmtienda,busqueda,termino,criterio;
             prmtienda = request.getParameter("txtTienda");
+            busqueda = request.getParameter("busqueda");
+            
+            List<Pedido> lista=null;
             DaoPedido daoPed=new DaoPedido();
-            List<Pedido> lista = daoPed.ConsultarPedidosTienda(prmtienda);
+            
+            if(busqueda==null){
+                lista = daoPed.ConsultarPedidosTienda(prmtienda);
+            }else{
+                criterio = request.getParameter("criterio");
+                termino = request.getParameter("termino");
+                lista = daoPed.BusquedaPedidosTienda(prmtienda, criterio, termino);
+            }
 
             request.setAttribute("listPed", lista);
+            
+            String prmusuario = request.getParameter("txtUsuario");
+            request.setAttribute("txtUsuario", prmusuario);
+            request.setAttribute("txtTienda", prmtienda);
+            
+            System.out.println("U:"+prmusuario);
+            System.out.println("T:"+prmtienda);
             
             request.getRequestDispatcher("/PedidoAdmAten.jsp").
                                             forward(request, response);

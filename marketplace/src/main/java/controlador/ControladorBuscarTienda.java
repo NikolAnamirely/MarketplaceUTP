@@ -100,7 +100,9 @@ public class ControladorBuscarTienda extends HttpServlet {
 
 
             request.setAttribute("listTi", lista);
+            request.setAttribute("txtUsuario", prmusuario);
             
+            System.out.println("U:"+prmusuario);
             request.getRequestDispatcher("/AdmTienda.jsp").
                                             forward(request, response);
     }

@@ -14,6 +14,7 @@ public class Detalle {
     double cantidad;
     String codproducto,unidades,idunidades;
     double costo;
+   
 
     public double getCosto() {
         return costo;

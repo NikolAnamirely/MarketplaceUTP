@@ -115,8 +115,11 @@ public class ControladorCalificacion extends HttpServlet {
                 numer = request.getParameter("numeracion");
                 comentario = request.getParameter("comentario");
                 idcalificacion = request.getParameter("id_cal");
-                System.out.println("NUMERO: "+numer);
+                
                 daoTienda.InsertarCalificacion(numer,comentario,idcalificacion);
+                double prom=daoTienda.CalcularPromedio(prmTienda);
+                System.out.println("PROMEDIO: "+prom);
+                daoTienda.ActualizarCalificacionPromedio(prmTienda, prom);
                 request.getRequestDispatcher("ControladorListarTiendas?txtUsuario="+prmuser).
                                             forward(request, response);
             }

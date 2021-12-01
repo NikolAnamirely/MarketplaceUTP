@@ -77,7 +77,6 @@ public class ControladorAutentificar extends HttpServlet {
                     session.setAttribute("currentUser",username);
                     
                     
-                    
                     if(rol.equals("1")){
                         response.sendRedirect("ControladorBuscarTienda?txtUsuario="+username); //vendedor 
                     }else if (rol.equals("2")){

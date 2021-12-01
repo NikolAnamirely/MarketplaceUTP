@@ -96,6 +96,7 @@ public class ControladorProductoTienda extends HttpServlet {
            prmTienda = request.getParameter("txtTienda");
            prmBuscar = request.getParameter("termino");
            prmcriterio=request.getParameter("criterio");
+           String prmusuario = request.getParameter("txtUsuario");
            DaoProducto daoProductos = new DaoProducto();
 
            lista= daoProductos.ConsultarProductos(prmTienda);
@@ -104,6 +105,11 @@ public class ControladorProductoTienda extends HttpServlet {
            request.setAttribute("products", lista);
            request.setAttribute("CodTienda", prmTienda);
 
+           
+           
+           System.out.println("A:"+prmusuario);
+           
+           request.setAttribute("txtUsuario", prmusuario);
            
            request.getRequestDispatcher("/CatalogoAdm.jsp").
                                            forward(request, response);

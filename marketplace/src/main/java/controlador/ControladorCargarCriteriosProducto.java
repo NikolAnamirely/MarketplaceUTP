@@ -107,7 +107,10 @@ public class ControladorCargarCriteriosProducto extends HttpServlet {
             //OBTENER DATOS DE CATEGORIA
             List<Seleccionar> listar= dao.Cargar("categoria");
             request.setAttribute("cmbcategoria", listar);
+            String prmusuario = request.getParameter("txtUsuario");
+            request.setAttribute("txtUsuario", prmusuario);
             //DEBOLVER REGISTRAR
+            System.out.println("A:"+prmusuario);
             request.getRequestDispatcher("registrarProducto.jsp").
                                            forward(request, response);
     }

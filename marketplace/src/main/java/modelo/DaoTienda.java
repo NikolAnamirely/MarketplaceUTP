@@ -226,22 +226,22 @@ public class DaoTienda {
     public double CalcularPromedio(String idtienda){
         Double promedio=0.00,total=0.00;
         int cant=0,cal;
-        String sql = "select id_numerica from calificacion WHERE id_tienda=?";
+        String sql = "select id_numerica from calificacion WHERE id_tienda="+idtienda;
         //Connection cnx = getConnection();
         Connection cnx= null;
         ResultSet rs=null;
-        PreparedStatement stm = null;
+        Statement stm = null;
         try 
         {
             cnx = MysqlDBConexion.getConexion();
-            stm = cnx.prepareStatement(sql);
-            stm.setString(1, idtienda);
-            rs = stm.executeQuery();
+            stm = cnx.createStatement();
+            
+            rs = stm.executeQuery(sql);
+            
             while (rs.next()) {
                 cal=rs.getInt(1);
                 promedio=cal+promedio;
                 cant++;
-                
             }
             total=promedio/cant;
             

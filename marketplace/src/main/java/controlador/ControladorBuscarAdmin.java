@@ -109,7 +109,10 @@ public class ControladorBuscarAdmin extends HttpServlet {
 
             request.setAttribute("products", lista);
             request.setAttribute("CodTienda", prmTienda);
+            String prmusuario = request.getParameter("txtUsuario");
+            request.setAttribute("txtUsuario", prmusuario);
            
+            System.out.println("A:"+prmusuario);
             request.getRequestDispatcher("CatalogoAdm.jsp").
                                            forward(request, response);
     }

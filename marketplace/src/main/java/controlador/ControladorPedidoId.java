@@ -99,9 +99,16 @@ public class ControladorPedidoId extends HttpServlet {
             DaoPedido daoPedidos = new DaoPedido();
             //OBTNENER OBJETO CON DATOS DEL PED SELECCIONADO
             Pedido obPedido = daoPedidos.ConsultarPedidosId(prmPedido);
+            
             //ENVIAR OBJETO
             request.setAttribute("edit", obPedido);
 
+            String prmtienda = request.getParameter("txtTienda");
+            request.setAttribute("txtTienda", prmtienda);
+            String prmusuario = request.getParameter("txtUsuario");
+            request.setAttribute("txtUsuario", prmusuario);
+            
+            System.out.println("U:"+prmusuario);
             //DEVOLVER A EDITAR
             request.getRequestDispatcher("editarPedido.jsp").forward(request, response);
     }

@@ -145,10 +145,69 @@ public class DaoPedido{
         }
         return lst;
     }
+     public List<Pedido> BusquedaPedidosTienda(String idtienda,String criterio,String termino) 
+    {
+            List<Pedido> lst = new ArrayList<Pedido>();
+            String sql="";
+            
+            if(criterio.equals("cliente")){
+                sql= "select p.id_pedido,p.subtotal,p.igv,p.total,p.fechacreacion,p.fechaentrega,p.horaentrega,p.estado,p.tipopago,p.repartidor,p.ordenpedido,u.id_usuario from pedido p inner join usuario u on p.id_usuario=u.id_usuario inner join persona s on u.id_persona=s.id_persona where (p.estado=1 or p.estado=2) and p.id_pedido in (select d.id_pedido from detalle_pedido d inner join producto o on d.id_producto= o.id_producto where o.id_tienda='"+idtienda+"') and (p.estado='1') and (s.primerapellido='"+termino+"' or s.segundoapellido='"+termino+"' or s.nombre='"+termino+"') order by p.estado asc";
+            }else{
+                sql = "select p.id_pedido,p.subtotal,p.igv,p.total,p.fechacreacion,p.fechaentrega,p.horaentrega,p.estado,p.tipopago,p.repartidor,p.ordenpedido,u.id_usuario from pedido p inner join usuario u on p.id_usuario=u.id_usuario where (p.estado=1 or p.estado=2) and p.id_pedido in (select d.id_pedido from detalle_pedido d inner join producto o on d.id_producto= o.id_producto where o.id_tienda='"+idtienda+"') and "+criterio+"='"+termino+"' order by p.estado asc";
+            }
+            Connection cnx= null;
+            ResultSet rs=null;
+            Statement stm = null;
+            Pedido resp = new Pedido();
+            try 
+        {
+            cnx = MysqlDBConexion.getConexion();
+            stm = cnx.createStatement();
+            rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                Pedido p = new Pedido();
+                p.setId(rs.getString(1));
+                p.setSubtotal(rs.getFloat(2));
+                p.setIgv(rs.getFloat(3));
+                p.setTotal(rs.getFloat(4));
+                p.setFecha_creacion(rs.getString(5));
+                p.setFecha_entrega(rs.getString(6));
+                p.setHora(rs.getString(7));
+                p.setEstado(rs.getString(8));
+                p.setTipoPago(rs.getString(9));
+                p.setRepartidor(rs.getString(10));
+                p.setOrdenpedido(rs.getString(11));
+                p.setId_usuario(rs.getString(12));
+                lst.add(p);
+            }
+            
+            cnx.close();
+            
+            
+        } 
+       catch (Exception e) 
+        {
+                e.printStackTrace();
+                System.out.print(e);
+        } 
+        finally
+        {
+                try 
+                {
+                        if(rs!= null) rs.close();
+                        if(stm!= null) stm.close();
+                        if(cnx!= null) cnx.close();
+                } 
+                catch (Exception e2) 
+                {
+                }
+        }
+        return lst;
+    }
     public List<Pedido> ConsultarPedidosTienda(String idpedido) 
     {
             List<Pedido> lst = new ArrayList<Pedido>();
-            String sql = "select p.id_pedido,p.subtotal,p.igv,p.total,p.fechacreacion,p.fechaentrega,p.horaentrega,p.estado,p.tipopago,p.repartidor,p.ordenpedido,u.id_usuario from pedido p inner join usuario u on p.id_usuario=u.id_usuario where (p.estado=1 or p.estado=2) and p.id_pedido in (select d.id_pedido from detalle_pedido d inner join producto o on d.id_producto= o.id_producto where o.id_tienda='"+idpedido+"')";
+            String sql = "select p.id_pedido,p.subtotal,p.igv,p.total,p.fechacreacion,p.fechaentrega,p.horaentrega,p.estado,p.tipopago,p.repartidor,p.ordenpedido,u.id_usuario from pedido p inner join usuario u on p.id_usuario=u.id_usuario where (p.estado=1 or p.estado=2) and p.id_pedido in (select d.id_pedido from detalle_pedido d inner join producto o on d.id_producto= o.id_producto where o.id_tienda='"+idpedido+"')order by p.estado asc";
             Connection cnx= null;
             ResultSet rs=null;
             Statement stm = null;

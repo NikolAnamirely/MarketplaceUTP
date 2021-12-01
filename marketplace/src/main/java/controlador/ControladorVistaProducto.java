@@ -92,13 +92,14 @@ public class ControladorVistaProducto extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException 
     {
-            String prmProducto,prmTienda,prmCrit,codPed;
+            String prmProducto,prmTienda,prmCrit,codPed,prmuser;
             //OBTENER ID PRODUCTO
             prmProducto = request.getParameter("idprod");
             //OBTENER ID TIENDA
             prmTienda = request.getParameter("tien");
             //OBTENER CRTERIO
             prmCrit = request.getParameter("crit");
+            
             //DECLARAR DAOS
             DaoProducto daoProductos = new DaoProducto();
             //OBTNENER OBJETO CON DATOS DEL PROD SELECCIONADO
@@ -108,15 +109,23 @@ public class ControladorVistaProducto extends HttpServlet {
             request.setAttribute("edit", obProducto);
             //ENVIAR TIENDA
             request.setAttribute("tien", prmTienda);
+            
+            
             if(prmCrit.equalsIgnoreCase("1")){
                 codPed = request.getParameter("codp");
+                prmuser = request.getParameter("user");
                 //ENVIAR TIENDA
                 request.setAttribute("codp", codPed);
+                request.setAttribute("user", prmuser);
+                
                 //DEVOLVER A EDITAR
                 request.getRequestDispatcher("/vistaProductoCli.jsp").
                                             forward(request, response);
             }else{
                 //DEVOLVER A EDITAR
+                String prmusuario = request.getParameter("txtUsuario");
+                request.setAttribute("txtUsuario", prmusuario);
+                    System.out.println("A:"+prmusuario);
                 request.getRequestDispatcher("/vistaProducto.jsp").
                                             forward(request, response);
             }

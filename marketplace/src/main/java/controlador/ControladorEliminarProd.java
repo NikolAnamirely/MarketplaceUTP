@@ -97,7 +97,12 @@ public class ControladorEliminarProd extends HttpServlet {
             String idTienda;
             idTienda = request.getParameter("txtTienda");
             
-            request.getRequestDispatcher("ControladorProductoTienda?txtTienda="+idTienda+"&termino=nada&criterio=nada").
+            
+            //RECIBIR Y ENVIAR USUARIO
+            String prmusuario = request.getParameter("txtUsuario");
+            
+            System.out.println("A:"+prmusuario);
+            request.getRequestDispatcher("ControladorProductoTienda?txtTienda="+idTienda+"&txtUsuario="+prmusuario+"&termino=nada&criterio=nada").
                                             forward(request, response);
      }
 }

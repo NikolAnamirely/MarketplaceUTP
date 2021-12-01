@@ -107,27 +107,13 @@
 <!-- End All Title Box -->
 <%
     String codped = (String)request.getAttribute("codpedido");
+    String subtotal = (String)request.getAttribute("subtotal");
+    String igv = (String)request.getAttribute("igv");
+    String total = (String)request.getAttribute("total");
     %>
 <!-- Start tabla productos  -->
 	<div class="contact-box-main">
             <div class="container">
-                <div class="row">
-                <%
-                    String subtotal = (String)request.getAttribute("subtotal");
-                    String igv = (String)request.getAttribute("igv");
-                    String total = (String)request.getAttribute("total");
-                %>
-                    <div class="col-lg-4 col-sm-6">
-                        Subtotal: <input type="text" style="font-size: 20px;border:0;" name="subtotal" value="<%=subtotal%>" readonly/>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        IGV: <input type="text" name="IGV"  style="font-size: 20px;border:0;" value="<%=igv%>" readonly/>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        Total: <input type="text" name="Total" style="font-size: 20px;border:0; " value="<%=total%>" readonly/>
-                    </div>
-                </div>
-                <br>
                 <table type="table table-hover" style="width: 100%;">
                     <thead>    
                         <tr class= "tablaspern" style="width: 100%;">
@@ -195,14 +181,29 @@
                     </tbody>
                 </table>
                 <br>
-                <p></p>
-                
                 <div class="row">
-                    <div class="col-lg-3 col-sm-1"></div>
-                    <div class="col-lg-4 col-sm-4">
-                        <p align="center" ><a href="ControladorFinalizarPedido?codigoPed=<%=codped%>"><button style="color: white; width: 150%" class="btn hvr-hover" id="submit">Generar Pedido</button></a></p>
+                    <div class="col-lg-1 col-sm-1"></div>
+                    <div class="col-lg-1 col-sm-2">Subtotal:</div>
+                    <div class="col-lg-3 col-sm-4">
+                        <input type="text" style="font-size: 20px;border:0;" name="subtotal" value="<%=subtotal%>" readonly/>
                     </div>
-                    <div class="col-lg-3 col-sm-1"></div>
+                    <div class="col-lg-1 col-sm-1">IGV: </div>
+                    <div class="col-lg-3 col-sm-3">
+                        <input type="text" name="IGV"  style="font-size: 20px;border:0;" value="<%=igv%>" readonly/>
+                    </div>
+                    <div class="col-lg-1 col-sm-1">Total:</div>
+                    <div class="col-lg-2 col-sm-3">
+                        <input type="text" name="Total" style="font-size: 20px;border:0; " value="<%=total%>" readonly/>
+                    </div>
+                </div>
+                    <br>
+                    <br>
+                <div class="row">
+                    <div class="col-lg-5 col-sm-1"></div>
+                    <div class="col-lg-3 col-sm-4">
+                        <p align="center" ><a href="ControladorFinalizarPedido?codigoPed=<%=codped%>"><button style="color: white; width: 50%" class="btn hvr-hover" id="submit">Generar Pedido</button></a></p>
+                    </div>
+                    <div class="col-lg-4 col-sm-1"></div>
                 </div>
                 <br>
                 <br>

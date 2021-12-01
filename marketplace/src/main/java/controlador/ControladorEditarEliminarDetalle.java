@@ -104,7 +104,7 @@ public class ControladorEditarEliminarDetalle extends HttpServlet {
            
             //ELEGIR ELIMINAR
             if(prmcriterio.equals("eliminar")){
-                daodet.eliminar(prmprod);
+                daodet.eliminar(prmprod,prmcodpedido);
             }else{
                 //PARAMETRO CANTIDAD
                 String  prmcantidad;

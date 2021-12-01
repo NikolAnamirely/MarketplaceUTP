@@ -95,26 +95,35 @@ public class ControladorMostrarPedidoPorCod extends HttpServlet {
             prmPedido = request.getParameter("idped");
             String prmtienda;
             prmtienda = request.getParameter("txtTienda");
+            String prmusuario = request.getParameter("txtUsuario");
             //LLAMO AL DAO
             DaoDetalle daodet = new DaoDetalle();
             //OBTENER 
             List<Detalle> lista = daodet.ConsultarDetalleId(prmPedido);
-            double subtotal=daodet.ConsultarSubtotal(lista);
-            double igv=subtotal*0.18;
-            double total=subtotal+igv;
-            
-            String sub=subtotal+"";
-            String ig=igv+"";
-            String tot=total+"";
-            
-            request.setAttribute("txtTienda", prmtienda);
+                //CALCULO TOTAL,SUB,IGV
+                double subtotal=daodet.ConsultarSubtotal(lista);
+                double igv=subtotal*0.18;
+                double total=subtotal+igv;
 
+                subtotal= Math.round(subtotal*100.0)/100.0;
+                igv= Math.round(igv*100.0)/100.0;
+                total= Math.round(total*100.0)/100.0;
             
+                String sub=subtotal+"";
+                String ig=igv+"";
+                String tot=total+"";
+            
+           
+            request.setAttribute("txtTienda", prmtienda);
+            request.setAttribute("txtUsuario", prmusuario);
             request.setAttribute("codpedido", prmPedido);
             request.setAttribute("detalle",lista);
             request.setAttribute("subtotal", sub);
             request.setAttribute("igv", ig);
             request.setAttribute("total", tot);
+            
+            System.out.println("usmos:"+prmusuario);
+            
             request.getRequestDispatcher("controlarCantProdPed.jsp").
                                             forward(request, response);
     }

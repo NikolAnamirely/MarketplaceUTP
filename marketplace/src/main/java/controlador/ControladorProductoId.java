@@ -94,16 +94,6 @@ public class ControladorProductoId extends HttpServlet {
             throws ServletException, IOException 
     {
 
-           /*String prmProducto;
-           prmProducto = request.getParameter("idprod");
-           DaoProducto daoProductos = new DaoProducto();
-           List<Producto> lista = daoProductos.ConsultarProductos(prmProducto);
-           
- 
-           request.setAttribute("edit", lista);
-
-           request.getRequestDispatcher("/editarProducto.jsp").
-                                           forward(request, response);*/
             String prmProducto;
             //OBTENER ID PRODUCTO
             prmProducto = request.getParameter("idprod");
@@ -125,7 +115,10 @@ public class ControladorProductoId extends HttpServlet {
             
             //ENVIAR OBJETO
             request.setAttribute("edit", obProducto);
-
+            //RECIBIR Y ENVIAR USUARIO
+            String prmusuario = request.getParameter("txtUsuario");
+            request.setAttribute("txtUsuario", prmusuario);
+            System.out.println("A:"+prmusuario);
             //DEVOLVER A EDITAR
             request.getRequestDispatcher("/editarProducto.jsp").
                                             forward(request, response);

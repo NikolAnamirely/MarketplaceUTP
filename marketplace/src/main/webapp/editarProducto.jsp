@@ -89,6 +89,7 @@
     </header>
 <%
                         Producto lista = (Producto)request.getAttribute("edit");  
+                        String us = (String)request.getAttribute("txtUsuario");
                         if(lista!= null)
                         {
                             
@@ -227,6 +228,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <input  class="form-control" name="tienda" value="<%=lista.getTienda()%>" type="hidden">
+                                        <input type="hidden" class="form-control" name="txtUsuario" value="<%=us%>" >
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>

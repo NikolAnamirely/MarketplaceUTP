@@ -86,13 +86,20 @@
     </header>
 <%
                         Pedido lista = (Pedido)request.getAttribute("edit");  
+                        String tienda = (String)request.getAttribute("txtTienda");
+                        String us = (String)request.getAttribute("txtUsuario");
+                        
                         if(lista!= null)
                         {
                                     String es;
                                     if(lista.getEstado().equals("1")){
                                         es="Activo";
                                     }else{
-                                        es="Atendido";
+                                        if(lista.getEstado().equals("2")){
+                                            es="Atendido";
+                                        }else{
+                                            es="Entregado";
+                                        }
                                     }
 
                             
@@ -113,28 +120,28 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <p>Subtotal: </p>
-                                        <input type="text" class="form-control" name="subtotal" value="<%=lista.getSubtotal()%>">
+                                        <input type="text" style="border: 0px" class="form-control" name="subtotal" value="<%=lista.getSubtotal()%>" readonly>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <p>igv: </p>
-                                        <input type="text" class="form-control" name="igv" value="<%=lista.getIgv()%>">
+                                        <input type="text" style="border: 0px" class="form-control" name="igv" value="<%=lista.getIgv()%>" readonly>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>  
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <p>total: </p>
-                                        <input type="text" class="form-control" name="total" value="<%=lista.getTotal()%>" >
+                                        <input type="text" style="border: 0px" class="form-control" name="total" value="<%=lista.getTotal()%>" readonly>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <p>Fecha Creación:</p>
-                                        <input type="date" class="form-control" name="fechacreacion" value="<%=lista.getFecha_creacion()%>" >
+                                        <input type="date" style="border: 0px" class="form-control" name="fechacreacion" value="<%=lista.getFecha_creacion()%>" readonly>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
@@ -155,9 +162,10 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                     Selecciona el estado
-                                        <select class="combo" name="estado">
+                                        <select class="combo" name="estado" required>
                                             <option value="<%=lista.getEstado()%>" selected hidden><%=es%></option>
                                             <option value="2">Atendido</option>
+                                            <option value="3">Entregado</option>
                                             <option value="1">Activo</option>
                                         </select>
                                         <div class="help-block with-errors"></div>
@@ -174,12 +182,9 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <input type="hidden" class="form-control" name="id_usuario" value="<%=lista.getId_usuario()%>" >
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input  class="form-control" name="tienda" value="" type="hidden">
+                                         <input name="txtTienda" value="<%=tienda%>" type="hidden">
+                                         <input type="hidden" class="form-control" name="txtUsuario" value="<%=us%>" >
+
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
@@ -195,7 +200,7 @@
                 
                 <br>
                 <br>
-                <p align="center"><a href="login.jsp"><img src="imagenes/atras.png"></a>&nbsp;&nbsp;&nbsp;<a href="index.jsp"><img src="imagenes/casa.png"></a></p>
+                <p align="center"><a href="ControladorMostrarPedidos?txtTienda=<%=tienda%>&txtUsuario=<%=us%>"><img src="imagenes/atras.png"></a>&nbsp;&nbsp;&nbsp;<a href="index.jsp"><img src="imagenes/casa.png"></a></p>
             </div>
         <%
             }

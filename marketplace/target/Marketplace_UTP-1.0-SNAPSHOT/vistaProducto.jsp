@@ -89,6 +89,7 @@
     </header>
 <%
                         Producto lista = (Producto)request.getAttribute("edit");  
+                        String us = (String)request.getAttribute("txtUsuario");
                         if(lista!= null)
                         {
                             
@@ -101,72 +102,75 @@
                             <input  name="txtTienda" style="border:0;" value="<%=lista.getTienda()%>" type="hidden">
                             <input  name="termino" style="border:0;" value="nada" type="hidden">
                             <input  name="criterio" style="border:0;" value="nada" type="hidden">
-                            
-                            <div class="row">	       
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        Codigo:
-                                        <input   style="border:0;" placeholder="<%=lista.getCodigo()%>" type="text">
-                                        <div class="help-block with-errors"></div>
+                            <input type="hidden" class="form-control" name="txtUsuario" value="<%=us%>" >
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <b>Codigo:</b>
+                                            <input   style="border:0;" placeholder="<%=lista.getCodigo()%>" type="text" readonly>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <b>Nombre:</b>
+                                            <input type="text" style="border:0;"  placeholder="<%=lista.getNombre()%>" readonly>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <b>Categoria:</b>
+                                            <input type="text" style="border:0;" placeholder="<%=lista.getCategoria()%>" readonly>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <p><b>Descripción:</b></p>
+                                            <input type="text" style="border:0;width: 100%" placeholder="<%=lista.getDescripcion()%>" readonly>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <p><b>Costo:</b> </p>
+                                            <input type="text"  style="border:0;" placeholder="<%=lista.getCosto()%>" readonly>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <b>Marca:</b>
+                                            <input type="text" style="border:0;" placeholder="<%=lista.getMarca()%>" readonly>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <b>Unidades</b>
+                                            <input type="text"  style="border:0;" placeholder="<%=lista.getUnidades()%>" readonly>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <b>Estado</b>
+                                            <input type="text"  style="border:0;" placeholder="<%=lista.getEstado()%>" readonly>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <p>Nombre: </p>
-                                        <input type="text" class="form-control" style="border:0;"  placeholder="<%=lista.getNombre()%>">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        Categoria:
-                                        <input type="text" class="form-control"style="border:0;" placeholder="<%=lista.getCategoria()%>">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>  
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <p>Descripción:</p>
-                                        <input type="text" class="form-control" style="border:0;" placeholder="<%=lista.getDescripcion()%>">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <p>Costo: </p>
-                                        <input type="text" class="form-control" style="border:0;" placeholder="<%=lista.getCosto()%>">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>  
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        Marca:
-                                        <input type="text" class="form-control" style="border:0;" placeholder="<%=lista.getMarca()%>">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        Unidades
-                                        <input type="text" class="form-control" style="border:0;" placeholder="<%=lista.getUnidades()%>">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        Estado
-                                        <input type="text" class="form-control"  style="border:0;" placeholder="<%=lista.getEstado()%>">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                    Imagen referencial
+                                    <b>Imagen referencial</b>
                                         <img src="ControladorIMG?id=<%= lista.getCodigo()%>" class="card-img-top" width="100%" height="100%">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
-                                                                
+                            </div>
+                            <div class="row">
                                 <div class="col-md-12">
                                     <div class="submit-button text-center">
                                         <button class="btn hvr-hover" id="submit" type="submit">Volver al catalogo</button>
