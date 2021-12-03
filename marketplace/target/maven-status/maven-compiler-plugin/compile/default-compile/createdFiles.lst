@@ -11,6 +11,7 @@ controlador\ControladorRegistroId.class
 pe\edu\utp\marketplace_utp\JAXRSConfiguration.class
 pe\edu\utp\marketplace_utp\resources\JavaEE8Resource.class
 controlador\ControladorCargarCriteriosProducto.class
+controlador\ControladorEnviarReporte.class
 controlador\ControladorMostrarPedidosAten.class
 modelo\Pedido.class
 controlador\ControladorTiendaNuevo.class

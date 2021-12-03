@@ -72,6 +72,8 @@ public class ControladorAutentificar extends HttpServlet {
                 String rol=user.getRol();
                 if (user.isValid())
                 {
+                    HttpSession sesion = request.getSession();
+                    sesion.invalidate();
                     HttpSession session = request.getSession(true);	    
                     session.setAttribute("currentSessionUser",user);
                     session.setAttribute("currentUser",username);

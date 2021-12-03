@@ -148,9 +148,23 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <%  //OBTENGO DATOS PARA COMBO
+                                                    List<Seleccionar> lismo = (List<Seleccionar>)request.getAttribute("cmbtipodireccion");   
+                                                    String nombrdirec=lista.getTipodireccion()+"";
+                                                     String nomof="";
+                                                    if(lismo != null)
+                                                    {
+                                                        for(Seleccionar aux :lismo)
+                                                        {
+                                                            if(nombrdirec.equals(aux.getId())){
+                                                               nomof=aux.getNombre();
+                                                            }
+                                                        }
+                                                    }
+                                                %>
                                         Seleccione el tipo de dirección:
                                         <select class="form-control" name="id_tipodireccion">
-                                                <option value=""><%=lista.getTipodireccion()%></option>
+                                                <option value="<%=lista.getTipodireccion()%>"><%=nomof%></option>
                                                 <%  //OBTENGO DATOS PARA COMBO
                                                     List<Seleccionar> li = (List<Seleccionar>)request.getAttribute("cmbtipodireccion");   
                                                     if(li != null)

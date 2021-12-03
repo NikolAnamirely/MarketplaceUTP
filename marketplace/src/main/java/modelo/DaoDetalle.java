@@ -172,7 +172,7 @@ public class DaoDetalle {
                     System.out.print("ERROR AGREGAR2:"+e2);
                 }
         }
-        String sql2 = "select id_pedido from pedido";
+        String sql2 = "select id_pedido from pedido order by id_pedido asc";
         String codi="";
         try {
         rs = stm.executeQuery(sql2);

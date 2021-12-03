@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modelo.DaoPedido;
 import modelo.Pedido;
 
@@ -34,7 +35,7 @@ public class ControladorMostrarReportes extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -87,17 +88,92 @@ public class ControladorMostrarReportes extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String met;
+
+        met = request.getParameter("metodo");
+        switch (met) {
+            case "listar":
+                lista(request, response);
+                break;
+            case "filtrar":
+                filtro(request, response);
+                break;
+            default:
+                lista(request, response);
+
+        }
+    }
+
+    protected void lista(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String prmtienda;
+        String param = "";
         prmtienda = request.getParameter("txtTienda");
         DaoPedido daoPed = new DaoPedido();
-        List<Pedido> lista = daoPed.ConsultarPedidosTienda(prmtienda);
+        List<Pedido> lista = daoPed.ConsultarPedidosReporte(prmtienda, param);
 
         request.setAttribute("listPed", lista);
+        request.setAttribute("idTienda", prmtienda);
 
         request.getRequestDispatcher("/ReporteAdm.jsp").
                 forward(request, response);
+
     }
+
+    protected void filtro(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String param = "";
+        String prmtienda = request.getParameter("txtTienda");
+        String prmcliente = request.getParameter("cliente");
+        String prminicio = request.getParameter("fInicio");
+        String prmfin = request.getParameter("fFin");
+        String prmcomp = request.getParameter("comp");
+        String prmmonto = request.getParameter("monto");
+        String prmestado = request.getParameter("estado");
+
+        DaoPedido daoPed = new DaoPedido();
+
+        if (!(prmcliente.isEmpty())) {
+            param = param + "AND CONCAT(pe.nombre,' ',pe.primerapellido,' ',pe.segundoapellido) LIKE '%" + prmcliente.replace(" ", "%") + "%' ";
+        }
+
+        if (prminicio.isEmpty() && !(prmfin.isEmpty())) {
+            prminicio = prmfin;
+        }
+        if (prmfin.isEmpty() && !(prminicio.isEmpty())) {
+            prmfin = prminicio;
+        }
+        if (prminicio.isEmpty() && prmfin.isEmpty()) {
+        } else {
+            if (prmfin.compareTo(prminicio) < 0) {
+                String tmp = prmfin;
+                prmfin = prminicio;
+                prminicio = tmp;
+
+            }
+            param = param + "AND p.fechacreacion BETWEEN '" + prminicio + "' AND '" + prmfin + "' ";
+        }
+        if (prmmonto.isEmpty()) {
+        } else {
+            param = param + "AND p.total " + prmcomp + " " + prmmonto + " ";
+        }
+        if (prmestado.isEmpty()) {
+        } else {
+            param = param + "AND p.estado = " + prmestado + " ";
+        }
+
+        List<Pedido> lista = daoPed.ConsultarPedidosReporte(prmtienda, param);
+        request.setAttribute("listPed", lista);
+        request.setAttribute("idTienda", prmtienda);
+
+        request.getRequestDispatcher("/ReporteAdm.jsp").
+                forward(request, response);
+
+    }
+
 }

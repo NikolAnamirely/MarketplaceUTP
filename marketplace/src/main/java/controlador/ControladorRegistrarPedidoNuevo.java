@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import modelo.DaoPedido;
 import modelo.Pedido;
 
@@ -120,6 +121,8 @@ public class ControladorRegistrarPedidoNuevo extends HttpServlet {
            ped.setRepartidor(repartidor);
            ped.setId_usuario(id_usuario);
            daoPedidos.insertarPedido(ped);
+           HttpSession sesion = request.getSession();
+           sesion.invalidate();
 
            request.getRequestDispatcher("index.jsp").
                                            forward(request, response);

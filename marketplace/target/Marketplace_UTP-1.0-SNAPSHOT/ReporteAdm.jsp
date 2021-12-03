@@ -5,6 +5,16 @@
 --%>
 <%@page import="modelo.Pedido"%>
 <%@page import="java.util.List"%>
+<%@page import="javax.servlet.RequestDispatcher"%>
+<%@page import="javax.servlet.http.HttpSession"%>";
+<%
+    String txtienda = String.valueOf(request.getAttribute("idTienda"));
+    List<Pedido> lista = (List<Pedido>) request.getAttribute("listPed");
+    String tienda = (String) request.getAttribute("txtTienda");
+    HttpSession sesion = request.getSession(true);
+    sesion.setAttribute("lista", lista);
+    
+%>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -102,110 +112,106 @@
             </div>
         </div>
         <!-- End All Title Box -->
-        <br>
 
-        <div id="accordion">
-            <div class="card">
-                <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Filtrar por Cliente
-                        </button>
-                    </h5>
-                </div>
-
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                    <div class="card-body">
-                        <form action="ServletFiltro" method="POST">
-                            <input type ="hidden" value="fcliente">
-                            <label for="cliente">Ingrese el cliente:</label>
-                            <input type ="text" id="cliente" name="cliente">
-                            <input type="submit" value="Enviar">
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Filtrar por Fechas
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                    <div class="card-body">
-                        <form action="ServletFiltro" method ="post">
-                            <input type="hidden" value="ffecha">
-                            <input type="radio" name="opcion" id="fecha" value="before">
-                            <input type="radio" id="fecha" value="before">
-                            
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header" id="headingThree">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Filtrar por monto
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                    <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>  
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header" id="headingThree">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            Filtrar por estado
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-                    <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <br>
         <!-- Start tabla productos  -->
         <div class="contact-box-main">
+
             <div class="container">
+                <form action="ControladorMostrarReportes">
+                    <h3>FILTROS</h3>
+                    <input type="hidden" name="metodo" value="filtrar"><input type="hidden" name="txtTienda" value="<%=txtienda%>">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="cliente-tab" data-toggle="tab" href="#cliente" role="tab" aria-controls="cliente" aria-selected="true">Cliente</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="fecha-tab" data-toggle="tab" href="#fecha" role="tab" aria-controls="fecha" aria-selected="false">Fecha</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="monto-tab" data-toggle="tab" href="#monto" role="tab" aria-controls="monto" aria-selected="false">Monto</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="estado-tab" data-toggle="tab" href="#estado" role="tab" aria-controls="estado" aria-selected="false">Estado</a>
+                        </li>
+                        <li class="nav-item">
+                            <input type="submit" class="btn btn-danger" value="FILTRAR">
+                        </li>
+                        <li class="nav-item">
+                            <a href="ControladorMostrarReportes?metodo=listar&txtTienda=<%=txtienda%>"><button type="button" class="btn btn-primary">RESTABLECER</button></a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="cliente" role="tabpanel" aria-labelledby="cliente-tab">
+
+                            Nombre de cliente: <input type="text" name="cliente">
+
+
+                        </div>
+                        <div class="tab-pane fade" id="fecha" role="tabpanel" aria-labelledby="fecha-tab">
+
+                            Fecha de Inicio: <input type="date" id="inicio"name="fInicio" >
+                            Fecha de Fin  : <input type="date" id="fin"name="fFin" >
+
+
+                        </div>
+                        <div class="tab-pane fade" id="monto" role="tabpanel" aria-labelledby="monto-tab">
+                            <select name="comp">
+                                <option value="=" selected>Igual a: S/.</option>
+                                <option value="<=">Hasta: S/.</option>
+                                <option value=">=">Desde: S/.</option>                                
+                            </select>
+                            <input type="number" id="monto" name="monto" min="0" step="any">                            
+
+
+                        </div>
+
+                        <div class="tab-pane fade" id="estado" role="tabpanel" aria-labelledby="estado-tab">
+                            <select name="estado">
+                                <option value="" selected>Todos</option>
+                                <option value="1" >Activo</option>
+                                <option value="2">Atendido</option>
+                                <option value="3">Entregado</option>                                
+                            </select>
+
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <div class="d-flex justify-content-center">
+                    <a href="ControladorEnviarReporte">
+                        <button type="button" class="btn btn-secondary btn-lg" >GENERAR REPORTE</button>
+                    </a>
+
+                </div>
+
 
                 <table style="width: 100%; border: 1px solid #ced4da;">
                     <tr class= "tablaspern" style="width: 100%;background: #495057;">
-                        <td style="width: 10%;">Codigo</td>
+                        <td style="width: 5%;">Codigo</td>
                         <td style="width: 10%;">Estado</td>
                         <td style="width: 10%;">Subtotal</td>
                         <td style="width: 10%;">Igv</td>
                         <td style="width: 10%;">Total</td>
                         <td style="width: 10%;">Fecha creación</td>
-                        <td style="width: 15%;">Fecha entrega</td>
-                        <td style="width: 15%;">Hora entrega</td>
-                        <td style="width: 15%;">Tipo Pago</td>
-                        <td style="width: 5%;">Editar</td>
-                        <td style="width: 5%;">Cant.Prod</td>
-                        <td style="width: 5%;">Eliminar</td>
+                        <td style="width: 10%;">Fecha entrega</td>
+                        <td style="width: 10%;">Hora entrega</td>
+                        <td style="width: 10%;">Tipo Pago</td>
+                        <td style="width: 15%;">Cliente</td>
+
                     </tr> 
                     <%
-                        List<Pedido> lista = (List<Pedido>) request.getAttribute("listPed");
-                        String tienda = (String) request.getAttribute("txtTienda");
+
                         if (lista != null) {
                             for (Pedido aux : lista) {
                                 String es;
                                 if (aux.getEstado().equals("1")) {
                                     es = "Activo";
-                                } else {
+                                } else if (aux.getEstado().equals("2")) {
                                     es = "Atendido";
+                                } else {
+                                    es = "Entregado";
                                 }
+
 
                     %>
                     <tr class="grilla_campo"> 
@@ -218,9 +224,8 @@
                         <td style="text-align: center"><%= aux.getFecha_entrega()%></td>
                         <td style="text-align: center"><%= aux.getHora()%></td>
                         <td style="text-align: center"><%= aux.getTipoPago()%></td>
-                        <td align="center"><a href="ControladorPedidoId?idped=<%=aux.getId()%>"><img src="imagenes/editar.png"></a></td>
-                        <td align="center"><a href="ControladorMostrarPedidoPorCod?idped=<%=aux.getId()%>&txtTienda=<%=tienda%>"><img src="imagenes/editar.png"></a></td>
-                        <td align="center"><a href="ControladorEliminarPedido?pedeliminar=<%=aux.getId()%>"><img src="imagenes/eliminar.png"></a></td>
+                        <td style="text-align: center"><%= aux.getId_usuario()%></td>
+
                     </tr>
                     <%      }
                         }%>
@@ -309,6 +314,7 @@
         <script src="js/form-validator.min.js"></script>
         <script src="js/contact-form-script.js"></script>
         <script src="js/custom.js"></script>
+
     </body>
 
 </html>

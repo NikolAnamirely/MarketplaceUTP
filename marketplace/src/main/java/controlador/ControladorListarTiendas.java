@@ -123,7 +123,8 @@ public class ControladorListarTiendas extends HttpServlet {
 
         session.setAttribute("ubicaciones", tiendas);
         session.setAttribute("iduser", idus);
-        
+        System.out.println("ID: "+codPed);
+
         //3 Se reenvia el request al formulario 
         request.getRequestDispatcher("/vistaUbicaciones.jsp").
                 forward(request, response);
