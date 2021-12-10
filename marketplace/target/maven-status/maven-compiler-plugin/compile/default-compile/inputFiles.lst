@@ -25,6 +25,7 @@ D:\CESAR\Documentos\NetBeansProjects\marketplace\src\main\java\modelo\DaoTienda.
 D:\CESAR\Documentos\NetBeansProjects\marketplace\src\main\java\controlador\ControladorEditarVendedor.java
 D:\CESAR\Documentos\NetBeansProjects\marketplace\src\main\java\modelo\Persona.java
 D:\CESAR\Documentos\NetBeansProjects\marketplace\src\main\java\controlador\ControladorProductoCatalogo.java
+D:\CESAR\Documentos\NetBeansProjects\marketplace\src\main\java\utils\Conectar.java
 D:\CESAR\Documentos\NetBeansProjects\marketplace\src\main\java\controlador\ControladorEliminarProd.java
 D:\CESAR\Documentos\NetBeansProjects\marketplace\src\main\java\controlador\ControladorVendedorId.java
 D:\CESAR\Documentos\NetBeansProjects\marketplace\src\main\java\modelo\Detalle.java
@@ -52,6 +53,7 @@ D:\CESAR\Documentos\NetBeansProjects\marketplace\src\main\java\controlador\Contr
 D:\CESAR\Documentos\NetBeansProjects\marketplace\src\main\java\pe\edu\utp\marketplace_utp\JAXRSConfiguration.java
 D:\CESAR\Documentos\NetBeansProjects\marketplace\src\main\java\controlador\ControladorAutentificar.java
 D:\CESAR\Documentos\NetBeansProjects\marketplace\src\main\java\controlador\ControladorClienteNuevo.java
+D:\CESAR\Documentos\NetBeansProjects\marketplace\src\main\java\utils\Correo.java
 D:\CESAR\Documentos\NetBeansProjects\marketplace\src\main\java\controlador\ControladorFinalizarPedido.java
 D:\CESAR\Documentos\NetBeansProjects\marketplace\src\main\java\controlador\ControladorOrdenPedidoId.java
 D:\CESAR\Documentos\NetBeansProjects\marketplace\src\main\java\modelo\Seleccionar.java

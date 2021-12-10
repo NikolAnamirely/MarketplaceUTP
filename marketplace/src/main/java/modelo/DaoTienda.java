@@ -532,7 +532,7 @@ public class DaoTienda {
     public Tienda ConsultarTiendaPorId(String idtienda) 
     {
             List<Tienda> lst = new ArrayList<Tienda>();
-            String sql = "select t.id_tienda,t.nombre,t.direccion,t.activo,t.latitud,t.longitud,t.calificacion,d.id_distrito,i.id_tipodireccion,p.id_persona from tienda t inner join distrito d on t.id_distrito=d.id_distrito INNER JOIN tipo_direccion  on t.id_tipodireccion=i.id_tipodireccion INNER JOIN persona p on t.id_persona=p.id_persona where t.id_tienda='"+
+            String sql = "select t.id_tienda,t.nombre,t.direccion,t.activo,t.latitud,t.longitud,t.calificacion,d.id_distrito,i.id_tipodireccion,p.id_persona from tienda t inner join distrito d on t.id_distrito=d.id_distrito INNER JOIN tipo_direccion i on t.id_tipodireccion=i.id_tipodireccion INNER JOIN persona p on t.id_persona=p.id_persona where t.id_tienda='"+
                     idtienda+"'";
             Connection cnx= null;
             ResultSet rs=null;

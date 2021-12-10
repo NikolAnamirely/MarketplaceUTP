@@ -12,26 +12,25 @@ import utils.MysqlDBConexion;
 public class DaoCliente {
 
     public String ObtenerDistrito(String username) {
-        String id_distrito=null;
+        String id_distrito = null;
         String sql = "SELECT id_distrito "
                 + "FROM persona "
                 + "WHERE id_persona=(select id_persona from usuario where usuario='"
                 + username + "')";
-            Connection cnx= null;
-            ResultSet rs=null;
-            Statement stm = null;
+        Connection cnx = null;
+        ResultSet rs = null;
+        Statement stm = null;
         try {
             //ABRE CONEXION CON BASE DE DATOS
             cnx = MysqlDBConexion.getConexion();
             //EJECUTAMOS SENTENCIA SQL
             stm = cnx.createStatement();
-            
+
             rs = stm.executeQuery(sql);
-            
+
             while (rs.next()) {
-                id_distrito=rs.getString(1);
-                
-                
+                id_distrito = rs.getString(1);
+
             }
 
             cnx.close();
@@ -53,7 +52,6 @@ public class DaoCliente {
         return id_distrito;
     }
 
-    
     public List<Cliente> ConsultarClientes() {
         List<Cliente> lst = new ArrayList<Cliente>();
         String sql = "select p.id_persona,p.nombre,p.primerapellido,p.segundoapellido,p.email,p.telefono,p.activo,p.direccion,p.id_tipodireccion,p.id_distrito, u.id_rol from persona p inner join usuario u on p.id_persona=u.id_persona where u.id_rol=2";
@@ -103,17 +101,16 @@ public class DaoCliente {
         }
         return lst;
     }
-    public Cliente ConsultarClientesId(String idcliente) 
-    {
-            List<Cliente> lst = new ArrayList<Cliente>();
-            String sql = "select p.id_persona,p.nombre,p.primerapellido,p.segundoapellido,p.email,p.telefono,p.activo,p.direccion,p.id_tipodireccion,p.id_distrito from persona p where p.id_persona='"+
-                    idcliente+"'";
-            Connection cnx= null;
-            ResultSet rs=null;
-            Statement stm = null;
-            Cliente resp = new Cliente();
-            try 
-        {
+
+    public Cliente ConsultarClientesId(String idcliente) {
+        List<Cliente> lst = new ArrayList<Cliente>();
+        String sql = "select p.id_persona,p.nombre,p.primerapellido,p.segundoapellido,p.email,p.telefono,p.activo,p.direccion,p.id_tipodireccion,p.id_distrito from persona p where p.id_persona='"
+                + idcliente + "'";
+        Connection cnx = null;
+        ResultSet rs = null;
+        Statement stm = null;
+        Cliente resp = new Cliente();
+        try {
             cnx = MysqlDBConexion.getConexion();
             stm = cnx.createStatement();
             rs = stm.executeQuery(sql);
@@ -130,35 +127,33 @@ public class DaoCliente {
                 c.setTipodireccion(rs.getInt(9));
                 c.setDistrito(rs.getInt(10));
                 lst.add(c);
-                
+
             }
-            for(Cliente aux :lst)
-            {
-                resp=aux;
+            for (Cliente aux : lst) {
+                resp = aux;
             }
             cnx.close();
-            
-            
-        } 
-       catch (Exception e) 
-        {
-                e.printStackTrace();
-                System.out.print(e);
-        } 
-        finally
-        {
-                try 
-                {
-                        if(rs!= null) rs.close();
-                        if(stm!= null) stm.close();
-                        if(cnx!= null) cnx.close();
-                } 
-                catch (Exception e2) 
-                {
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.print(e);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
                 }
+                if (stm != null) {
+                    stm.close();
+                }
+                if (cnx != null) {
+                    cnx.close();
+                }
+            } catch (Exception e2) {
+            }
         }
         return resp;
     }
+
     /*
 	public List<Cliente> consultarClientes() {
 	        List<Cliente> lst = new ArrayList<Cliente>();
@@ -260,7 +255,7 @@ public class DaoCliente {
             cnx = MysqlDBConexion.getConexion();
             //EJECUTAMOS SENTENCIA SQL
             stm = cnx.prepareStatement(sql);
-            
+
             //LECTURA DE LOS DATOS QUE DEBUELVE LA BD
             rs = stm.executeQuery();
             //CREAMOS OBJETO PRODUCTO
@@ -298,26 +293,25 @@ public class DaoCliente {
         }
         return cli;
     }
-    public Cliente editar(Cliente cli) 
-    {
-        int id = cli.getId();
-        String nombre= cli.getNombre();
-        String primerapellido= cli.getPrimerapellido();
-        String segundoapellido= cli.getSegundoapellido();
-        String email= cli.getEmail();
-        String telefono= cli.getTelefono();
-        int activo= cli.getActivo();
-        String direccion= cli.getDireccion();
-        int tipodireccion= cli.getTipodireccion();
-        int distrito=cli.getDistrito();
 
-        String sql = "update persona set nombre='"+nombre+"',primerapellido='"+primerapellido+"',segundoapellido='"+segundoapellido+"',email='"+email+"',telefono='"+telefono+"',activo="+activo+",direccion='"+direccion+"',id_tipodireccion="+tipodireccion+",id_distrito="+distrito+" where id_persona="+id;
+    public Cliente editar(Cliente cli) {
+        int id = cli.getId();
+        String nombre = cli.getNombre();
+        String primerapellido = cli.getPrimerapellido();
+        String segundoapellido = cli.getSegundoapellido();
+        String email = cli.getEmail();
+        String telefono = cli.getTelefono();
+        int activo = cli.getActivo();
+        String direccion = cli.getDireccion();
+        int tipodireccion = cli.getTipodireccion();
+        int distrito = cli.getDistrito();
+
+        String sql = "update persona set nombre='" + nombre + "',primerapellido='" + primerapellido + "',segundoapellido='" + segundoapellido + "',email='" + email + "',telefono='" + telefono + "',activo=" + activo + ",direccion='" + direccion + "',id_tipodireccion=" + tipodireccion + ",id_distrito=" + distrito + " where id_persona=" + id;
         //Connection cnx = getConnection();
-        Connection cnx= null;
+        Connection cnx = null;
         Statement stm = null;
         Cliente c = null;
-        try 
-        {
+        try {
             //ABRE CONEXION CON BASE DE DATOS
             cnx = MysqlDBConexion.getConexion();
             //EJECUTAMOS SENTENCIA SQL
@@ -325,25 +319,74 @@ public class DaoCliente {
             stm.executeUpdate(sql);
 
             cnx.close();
-            
-            
-        } 
-       catch (Exception e) 
-        {
-                e.printStackTrace();
-                System.out.print("editarCliente"+e);
-        } 
-        finally
-        {
-                try 
-                {
-                        if(stm!= null) stm.close();
-                        if(cnx!= null) cnx.close();
-                } 
-                catch (Exception e2) 
-                {
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.print("editarCliente" + e);
+        } finally {
+            try {
+                if (stm != null) {
+                    stm.close();
                 }
+                if (cnx != null) {
+                    cnx.close();
+                }
+            } catch (Exception e2) {
+            }
         }
         return c;
+    }
+    public String obtenerCorreoCliente(String idusuario){
+        List<Cliente> lst = new ArrayList<Cliente>();
+        String sql = "select p.id_persona,p.nombre,p.primerapellido,p.segundoapellido,p.email,p.telefono,p.activo,p.direccion,p.id_tipodireccion,p.id_distrito from persona p inner join usuario u on p.id_persona=u.id_persona where u.id_usuario='"+idusuario+"';";
+        Connection cnx = null;
+        ResultSet rs = null;
+        Statement stm = null;
+        Cliente resp = new Cliente();
+        try {
+            cnx = MysqlDBConexion.getConexion();
+            stm = cnx.createStatement();
+            rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                Cliente c = new Cliente();
+                c.setId(rs.getInt(1));
+                c.setNombre(rs.getString(2));
+                c.setPrimerapellido(rs.getString(3));
+                c.setSegundoapellido(rs.getString(4));
+                c.setEmail(rs.getString(5));
+                c.setTelefono(rs.getString(6));
+                c.setActivo(rs.getInt(7));
+                c.setDireccion(rs.getString(8));
+                c.setTipodireccion(rs.getInt(9));
+                c.setDistrito(rs.getInt(10));
+                lst.add(c);
+
+            }
+            for (Cliente aux : lst) {
+                resp = aux;
+            }
+            cnx.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.print(e);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+                if (cnx != null) {
+                    cnx.close();
+                }
+            } catch (Exception e2) {
+            }
+            
+        }
+        return resp.getEmail();
+        
+        
     }
 }

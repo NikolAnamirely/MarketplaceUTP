@@ -117,7 +117,7 @@ public class ControladorMostrarReportes extends HttpServlet {
         List<Pedido> lista = daoPed.ConsultarPedidosReporte(prmtienda, param);
 
         request.setAttribute("listPed", lista);
-        request.setAttribute("idTienda", prmtienda);
+        request.setAttribute("txtTienda", prmtienda);
 
         request.getRequestDispatcher("/ReporteAdm.jsp").
                 forward(request, response);
@@ -169,7 +169,7 @@ public class ControladorMostrarReportes extends HttpServlet {
 
         List<Pedido> lista = daoPed.ConsultarPedidosReporte(prmtienda, param);
         request.setAttribute("listPed", lista);
-        request.setAttribute("idTienda", prmtienda);
+        request.setAttribute("txtTienda", prmtienda);
 
         request.getRequestDispatcher("/ReporteAdm.jsp").
                 forward(request, response);

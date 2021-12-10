@@ -4,9 +4,11 @@
  */
 package controlador;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -17,14 +19,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.DaoPedido;
+import modelo.DaoTienda;
 import modelo.Pedido;
+import modelo.Tienda;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import java.time.LocalDate;
+import modelo.DaoVendedor;
+import modelo.Vendedor;
+import utils.Correo;
 
 /**
  *
@@ -44,7 +56,7 @@ public class ControladorEnviarReporte extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -102,25 +114,45 @@ public class ControladorEnviarReporte extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sesion = request.getSession();
-        List<Pedido> lista = (List<Pedido>) sesion.getAttribute("lista");
+        String prmtienda = String.valueOf(request.getParameter("txtTienda"));
+        DaoTienda tienda = new DaoTienda();
+        Tienda t  = tienda.ConsultarTiendaPorId(prmtienda);   
+        DaoPedido ped = new DaoPedido();
+        List<Pedido> lista2 = (List<Pedido>) sesion.getAttribute("lista");
+        List<Pedido> lista = new ArrayList<>();
+        lista.add(ped.pedidoVacio());
+        lista.addAll(lista2);
+        DaoVendedor vendedor = new DaoVendedor();
+        Vendedor v =vendedor.ConsultarVendedoresId(prmtienda);
+        String correo=v.getEmail();
         ServletOutputStream out = response.getOutputStream();
         try {
-
-            InputStream reportePedidos = this.getServletConfig().getServletContext().getResourceAsStream("Reportes/reportepedidos.jasper");
-            if (reportePedidos != null) {
-
-                JasperReport report = (JasperReport) JRLoader.loadObject(reportePedidos);
-                JRBeanArrayDataSource ds = new JRBeanArrayDataSource(lista.toArray());
-
+            InputStream inputStream;
+            inputStream = new FileInputStream("D:\\CESAR\\Documentos\\NetBeansProjects\\marketplace\\reporte\\reportepedidos.jrxml");
+            
+            if (inputStream != null) {
+                LocalDate fecha = LocalDate.now();
+                JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+                JasperReport report = JasperCompileManager.compileReport(jasperDesign);
+                JRBeanArrayDataSource ds = new JRBeanArrayDataSource(lista.toArray());                
                 Map<String, Object> parameters = new HashMap();
                 parameters.put("ds", ds);
-
+                parameters.put("tienda",t.getNombre());
                 response.setContentType("application/pdf");
-                response.addHeader("Content-disposition", "inline; filename=ReportesEmpleados.pdf");
+                response.addHeader("Content-disposition", "inline; filename=ReportesPedidos.pdf");
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, ds);
                 JasperExportManager.exportReportToPdfStream(jasperPrint, out);
                 out.flush();
                 out.close();
+                String nombre="reporte-"+String.valueOf(fecha)+"-"+t.getNombre()+".pdf";
+                String ruta="D:\\CESAR\\Documentos\\NetBeansProjects\\marketplace\\reporte\\"+nombre;
+                JasperExportManager.exportReportToPdfFile(jasperPrint, ruta);
+                
+                Correo c = new Correo();
+                c.enviarReporte(ruta,nombre, correo);
+                
+               
+                
             } else {
                 response.setContentType("text/plain");
                 out.println("no se pudo generar el reporte");

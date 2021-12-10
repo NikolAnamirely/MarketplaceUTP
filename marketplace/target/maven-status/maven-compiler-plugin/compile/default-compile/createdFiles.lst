@@ -21,7 +21,9 @@ controlador\ControladorOrdenPedidoId.class
 modelo\DaoSeleccionar.class
 controlador\ControladorEditarPedido.class
 controlador\ControladorEliminarPedido.class
+utils\Conectar.class
 controlador\ControladorClienteNuevo.class
+utils\Correo.class
 controlador\ControladorBuscarAdmin.class
 modelo\Tienda.class
 controlador\ControladorEditarTienda.class

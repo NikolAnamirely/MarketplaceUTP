@@ -8,7 +8,7 @@
 <%@page import="javax.servlet.RequestDispatcher"%>
 <%@page import="javax.servlet.http.HttpSession"%>";
 <%
-    String txtienda = String.valueOf(request.getAttribute("idTienda"));
+    
     List<Pedido> lista = (List<Pedido>) request.getAttribute("listPed");
     String tienda = (String) request.getAttribute("txtTienda");
     HttpSession sesion = request.getSession(true);
@@ -119,7 +119,7 @@
             <div class="container">
                 <form action="ControladorMostrarReportes">
                     <h3>FILTROS</h3>
-                    <input type="hidden" name="metodo" value="filtrar"><input type="hidden" name="txtTienda" value="<%=txtienda%>">
+                    <input type="hidden" name="metodo" value="filtrar"><input type="hidden" name="txtTienda" value="<%=tienda%>">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="cliente-tab" data-toggle="tab" href="#cliente" role="tab" aria-controls="cliente" aria-selected="true">Cliente</a>
@@ -137,7 +137,7 @@
                             <input type="submit" class="btn btn-danger" value="FILTRAR">
                         </li>
                         <li class="nav-item">
-                            <a href="ControladorMostrarReportes?metodo=listar&txtTienda=<%=txtienda%>"><button type="button" class="btn btn-primary">RESTABLECER</button></a>
+                            <a href="ControladorMostrarReportes?metodo=listar&txtTienda=<%=tienda%>"><button type="button" class="btn btn-primary">RESTABLECER</button></a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
@@ -178,7 +178,7 @@
                 </form>
                 <br>
                 <div class="d-flex justify-content-center">
-                    <a href="ControladorEnviarReporte">
+                    <a href="ControladorEnviarReporte?txtTienda=<%=tienda%>">
                         <button type="button" class="btn btn-secondary btn-lg" >GENERAR REPORTE</button>
                     </a>
 

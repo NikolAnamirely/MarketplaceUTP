@@ -7,8 +7,20 @@ public class Pedido {
     private String fecha_creacion,fecha_entrega,ordenpedido;
     private float subtotal,igv,total;
 
-    public Pedido () 
-    {}
+    public Pedido () {
+            this.id="";
+        this.id_usuario="";
+        this.estado = "";
+        this.tipoPago = "";
+        this.repartidor = "";
+        this.hora = "";
+        this.fecha_creacion = "";
+        this.fecha_entrega = "";
+        this.ordenpedido="";
+        this.subtotal = 0;
+        this.igv = 0;
+        this.total = 0;
+    }
 
     public Pedido(String id, String id_usuario,String estado, String ordenpedido,String tipoPago, String repartidor, String hora, String fecha_creacion, String fecha_entrega, float subtotal, float igv, float total) {
         this.id=id;

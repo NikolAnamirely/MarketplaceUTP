@@ -491,4 +491,8 @@ public class DaoPedido {
         }
         return p;
     }
+    public Pedido pedidoVacio(){
+        
+        return new Pedido();
+    }
 }

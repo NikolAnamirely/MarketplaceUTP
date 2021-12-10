@@ -122,6 +122,7 @@ public class DaoVendedor {
         Connection cnx = null;
         ResultSet rs = null;
         PreparedStatement stm = null;
+        
         try {
             cnx = MysqlDBConexion.getConexion();
             stm = cnx.prepareStatement(sql);
